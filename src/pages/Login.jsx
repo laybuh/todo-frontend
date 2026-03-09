@@ -22,8 +22,14 @@ export default function Login() {
     return (
         <div className="auth-container">
             <div className="auth-box">
-                <p className="app-name">DoSpace</p>
-                <h1>Welcome back.</h1>
+                <div className="brand">
+                    <Link to="/login" style={{ textDecoration: 'none' }}>
+                        <p className="app-name">dospace</p>
+                    </Link>
+                    <p className="app-tagline">Your space. Your tasks.</p>
+                </div>
+                <h1>Sign in.</h1>
+                <p className="auth-desc">A private, encrypted space for your tasks. Everything you write is secured and only visible to you. Your tasks are fully encrypted; we cannot read them, and neither can anyone else.</p>
                 <p className="auth-sub">Sign in to your account.</p>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleLogin}>
@@ -42,6 +48,13 @@ export default function Login() {
                     <button type="submit">Sign in</button>
                 </form>
                 <p className="auth-link">Don't have an account? <Link to="/register">Register</Link></p>
+                <p className="forgot-text">
+                    Forgot your password?{' '}
+                    <a href="mailto:dospace.app@gmail.com">Contact support</a>
+                    {' '}or email{' '}
+                    <a href="mailto:dospace.app@gmail.com">dospace.app@gmail.com</a>
+                    {' '}using your registered email address.
+                </p>
             </div>
         </div>
     )
