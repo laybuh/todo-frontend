@@ -166,6 +166,7 @@ body {
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .logout-btn:hover {
@@ -319,24 +320,6 @@ body {
   padding: 2.5rem 0;
 }
 
-@media (max-width: 480px) {
-  .auth-box {
-    padding: 2rem 1.5rem;
-  }
-
-  .dashboard-header {
-    padding: 1rem 1.5rem;
-  }
-
-  .dashboard-main {
-    margin: 2rem auto;
-  }
-
-  .auth-box h1 {
-    font-size: 1.7rem;
-  }
-}
-
 .forgot-text {
   font-size: 0.70rem;
   color: #555;
@@ -364,6 +347,72 @@ body {
   opacity: 90%;
 }
 
-.logout-btn {
-  text-decoration: none;
+/* tablet */
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .dashboard-main {
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .auth-container {
+    padding: 1.5rem;
+  }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+
+  .auth-box {
+    padding: 1.8rem 1.2rem;
+    border-radius: 10px;
+  }
+
+  .auth-box h1 {
+    font-size: 1.6rem;
+  }
+
+  .dashboard-header {
+    padding: 0.9rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .dashboard-header .brand {
+    margin-bottom: 0;
+  }
+
+  .dashboard-main {
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  .dashboard-main h1 {
+    font-size: 1.3rem;
+  }
+
+  .add-form {
+    flex-direction: column;
+  }
+
+  .add-form button {
+    width: 100%;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+  }
+
+  .todo-item {
+    padding: 0.75rem 0.85rem;
+  }
 }
