@@ -29,7 +29,7 @@ export default function ChangePassword() {
             return
         }
         try {
-            await axios.put('http://localhost:5000/auth/change-password',
+            await axios.put(`${import.meta.env.VITE_API_URL}/auth/change-password`,
                 { currentPassword, newPassword },
                 { headers: { authorization: token } }
             )

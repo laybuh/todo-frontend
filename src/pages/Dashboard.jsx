@@ -22,7 +22,7 @@ export default function Dashboard() {
     }, [])
 
     const fetchTodos = async () => {
-        const res = await axios.get('http://localhost:5000/todos', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/todos`, {
             headers: { authorization: token }
         })
         setTodos(res.data)
@@ -31,7 +31,7 @@ export default function Dashboard() {
     const addTodo = async (e) => {
         e.preventDefault()
         if (!title.trim()) return
-        await axios.post('http://localhost:5000/todos', { title }, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/todos`, { title }, {
             headers: { authorization: token }
         })
         setTitle('')
@@ -39,14 +39,14 @@ export default function Dashboard() {
     }
 
     const deleteTodo = async (id) => {
-        await axios.delete(`http://localhost:5000/todos/${id}`, {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
             headers: { authorization: token }
         })
         fetchTodos()
     }
 
     const toggleComplete = async (id, completed) => {
-        await axios.put(`http://localhost:5000/todos/${id}`, { completed: !completed }, {
+        await axios.put(`${import.meta.env.VITE_API_URL}/todos/${id}`, { completed: !completed }, {
             headers: { authorization: token }
         })
         fetchTodos()
