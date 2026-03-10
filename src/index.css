@@ -384,10 +384,17 @@ body {
     padding: 0.9rem 1rem;
     flex-wrap: wrap;
     gap: 0.75rem;
+    align-items: flex-start;
   }
 
   .dashboard-header .brand {
     margin-bottom: 0;
+  }
+
+  .dashboard-header>div:last-child {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .dashboard-main {
