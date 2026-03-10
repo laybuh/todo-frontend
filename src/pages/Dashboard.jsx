@@ -91,9 +91,37 @@ export default function Dashboard() {
 
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                     <Link to="/change-password" className="logout-btn">Change password</Link>
+                    <button className="logout-btn delete-account-btn" onClick={() => setShowDeleteConfirm(true)}>Delete account</button>
                     <button className="logout-btn" onClick={handleLogout}>Sign out</button>
                 </div>
             </div>
+
+            {showDeleteConfirm && (
+                <div className="delete-modal-overlay">
+                    <div className="delete-modal">
+                        <h2>Delete account</h2>
+                        <p>Enter your email to confirm. This cannot be undone.</p>
+                        <input
+                            type="email"
+                            placeholder="Your email"
+                            value={deleteEmail}
+                            onChange={e => {
+                                setDeleteEmail(e.target.value)
+                                setDeleteError('')
+                            }}
+                        />
+                        {deleteError && <p className="error">{deleteError}</p>}
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                            <button className="delete-account-btn logout-btn" onClick={handleDeleteAccount}>Yes, delete</button>
+                            <button className="logout-btn" onClick={() => {
+                                setShowDeleteConfirm(false)
+                                setDeleteEmail('')
+                                setDeleteError('')
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="dashboard-main">
                 <h1>Hi, {username}!</h1>
@@ -127,36 +155,6 @@ export default function Dashboard() {
                             <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>✕</button>
                         </div>
                     ))}
-                </div>
-
-                <div className="danger-zone">
-                    {!showDeleteConfirm ? (
-                        <button className="delete-account-btn" onClick={() => setShowDeleteConfirm(true)}>
-                            Delete account
-                        </button>
-                    ) : (
-                        <div className="delete-confirm">
-                            <p>Enter your email to confirm account deletion. This cannot be undone.</p>
-                            <input
-                                type="email"
-                                placeholder="Your email"
-                                value={deleteEmail}
-                                onChange={e => {
-                                    setDeleteEmail(e.target.value)
-                                    setDeleteError('')
-                                }}
-                            />
-                            {deleteError && <p className="error">{deleteError}</p>}
-                            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                                <button className="delete-account-btn" onClick={handleDeleteAccount}>Yes, delete</button>
-                                <button className="logout-btn" onClick={() => {
-                                    setShowDeleteConfirm(false)
-                                    setDeleteEmail('')
-                                    setDeleteError('')
-                                }}>Cancel</button>
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
