@@ -472,3 +472,12 @@ body {
 .delete-modal input:focus {
   border-color: #e05555;
 }
+
+.success {
+  font-size: 0.82rem;
+  color: #2e9e6e;
+  background: #f0fdf8;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #c3edd8;
+}
