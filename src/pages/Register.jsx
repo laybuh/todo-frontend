@@ -24,7 +24,7 @@ export default function Register() {
                 navigate('/login')
             }, 2000)
         } catch (err) {
-            setError('Something went wrong. Try a different email.')
+            setError('Something went wrong.')
         }
     }
 
