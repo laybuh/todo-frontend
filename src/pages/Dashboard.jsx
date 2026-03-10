@@ -7,6 +7,9 @@ export default function Dashboard() {
     const [title, setTitle] = useState('')
     const [filter, setFilter] = useState('all')
     const [username, setUsername] = useState('')
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+    const [deleteEmail, setDeleteEmail] = useState('')
+    const [deleteError, setDeleteError] = useState('')
     const navigate = useNavigate()
 
     const token = localStorage.getItem('token')
@@ -55,6 +58,19 @@ export default function Dashboard() {
     const handleLogout = () => {
         localStorage.removeItem('token')
         navigate('/login')
+    }
+
+    const handleDeleteAccount = async () => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
+                headers: { authorization: token },
+                data: { email: deleteEmail }
+            })
+            localStorage.removeItem('token')
+            navigate('/login')
+        } catch (err) {
+            setDeleteError(err.response?.data?.error || 'Something went wrong.')
+        }
     }
 
     const filtered = todos.filter(t => {
@@ -111,6 +127,36 @@ export default function Dashboard() {
                             <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>✕</button>
                         </div>
                     ))}
+                </div>
+
+                <div className="danger-zone">
+                    {!showDeleteConfirm ? (
+                        <button className="delete-account-btn" onClick={() => setShowDeleteConfirm(true)}>
+                            Delete account
+                        </button>
+                    ) : (
+                        <div className="delete-confirm">
+                            <p>Enter your email to confirm account deletion. This cannot be undone.</p>
+                            <input
+                                type="email"
+                                placeholder="Your email"
+                                value={deleteEmail}
+                                onChange={e => {
+                                    setDeleteEmail(e.target.value)
+                                    setDeleteError('')
+                                }}
+                            />
+                            {deleteError && <p className="error">{deleteError}</p>}
+                            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                                <button className="delete-account-btn" onClick={handleDeleteAccount}>Yes, delete</button>
+                                <button className="logout-btn" onClick={() => {
+                                    setShowDeleteConfirm(false)
+                                    setDeleteEmail('')
+                                    setDeleteError('')
+                                }}>Cancel</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
