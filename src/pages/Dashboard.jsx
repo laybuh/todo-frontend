@@ -19,9 +19,45 @@ export default function Dashboard() {
             navigate('/login')
             return
         }
+
+        const lastActive = localStorage.getItem('lastActive')
+        if (lastActive && Date.now() - parseInt(lastActive) > 60 * 60 * 1000) {
+            localStorage.removeItem('token')
+            localStorage.removeItem('lastActive')
+            navigate('/login')
+            return
+        }
+
         fetchTodos()
         const payload = JSON.parse(atob(token.split('.')[1]))
         setUsername(payload.username || 'there')
+    }, [])
+
+    useEffect(() => {
+        const timeout = { current: null }
+
+        const resetTimer = () => {
+            localStorage.setItem('lastActive', Date.now().toString())
+            clearTimeout(timeout.current)
+            timeout.current = setTimeout(() => {
+                localStorage.removeItem('token')
+                localStorage.removeItem('lastActive')
+                navigate('/login')
+            }, 60 * 60 * 1000)
+        }
+
+        window.addEventListener('mousemove', resetTimer)
+        window.addEventListener('keydown', resetTimer)
+        window.addEventListener('click', resetTimer)
+
+        resetTimer()
+
+        return () => {
+            clearTimeout(timeout.current)
+            window.removeEventListener('mousemove', resetTimer)
+            window.removeEventListener('keydown', resetTimer)
+            window.removeEventListener('click', resetTimer)
+        }
     }, [])
 
     const fetchTodos = async () => {
@@ -57,6 +93,7 @@ export default function Dashboard() {
 
     const handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('lastActive')
         navigate('/login')
     }
 
@@ -67,6 +104,7 @@ export default function Dashboard() {
                 data: { email: deleteEmail }
             })
             localStorage.removeItem('token')
+            localStorage.removeItem('lastActive')
             navigate('/login')
         } catch (err) {
             setDeleteError(err.response?.data?.error || 'Something went wrong.')
