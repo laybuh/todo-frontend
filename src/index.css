@@ -301,7 +301,7 @@ body {
 .delete-btn {
   background: none;
   border: none;
-  color: #ddd;
+  color: #4ecca3;
   font-size: 0.8rem;
   cursor: pointer;
   transition: color 0.2s ease;
