@@ -19,7 +19,7 @@ export default function Register() {
         }
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, { username, email, password })
-            setSuccess('Account created! Redirecting to login...')
+            setSuccess('Account created! Please check your email to verify your account before signing in. Redirecting to login...')
             setTimeout(() => {
                 navigate('/login')
             }, 2000)
