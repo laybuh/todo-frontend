@@ -56,7 +56,7 @@ export default function Register() {
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Password (8+ chars, 1 capital, 1 symbol)"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
