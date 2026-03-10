@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
@@ -10,7 +10,11 @@ export default function Register() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const navigate = useNavigate()
-
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/dashboard')
+        }
+    }, [])
     const handleRegister = async (e) => {
         e.preventDefault()
         if (password !== confirmPassword) {

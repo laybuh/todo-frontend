@@ -1,11 +1,19 @@
-import { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/dashboard')
+        }
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

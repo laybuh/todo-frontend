@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 
@@ -7,6 +7,13 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/dashboard')
+        }
+    }, [])
+
     const [searchParams] = useSearchParams()
     const verified = searchParams.get('verified')
 
@@ -52,11 +59,7 @@ export default function Login() {
                 </form>
                 <p className="auth-link">Don't have an account? <Link to="/register">Register</Link></p>
                 <p className="forgot-text">
-                    Forgot your password?{' '}
-                    <a href="mailto:dospace.app@gmail.com">Contact support</a>
-                    {' '}or email{' '}
-                    <a href="mailto:dospace.app@gmail.com">dospace.app@gmail.com</a>
-                    {' '}using your registered email address.
+                    <Link to="/forgot-password">Forgot your password?</Link>
                 </p>
             </div>
         </div>
