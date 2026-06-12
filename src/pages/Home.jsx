@@ -111,6 +111,16 @@ export default function Home() {
             </section>
 
             <PublicFooter />
+
+            {/* Subtle floating support link */}
+            <a
+                href="https://ko-fi.com/layba"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-5 right-5 z-40 font-mono text-[11px] uppercase tracking-widest text-[#6c5a93] border border-mauve/60 bg-mauve/20 backdrop-blur rounded-md px-3 py-1.5 shadow-sm hover:bg-mauve/30 transition-colors"
+            >
+                Buy me a coffee
+            </a>
         </div>
     )
 }
