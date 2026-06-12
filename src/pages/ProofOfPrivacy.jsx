@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PublicNav from '../components/PublicNav'
 import PublicFooter from '../components/PublicFooter'
 
-// ── real AES-256-CBC in the browser, mirroring lunev's server-side scheme ──
+// ── real AES-256-GCM in the browser, the same scheme lunev runs server-side ──
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
@@ -14,21 +14,32 @@ const fromHex = (hex) =>
     new Uint8Array(hex.match(/.{1,2}/g)?.map((h) => parseInt(h, 16)) ?? [])
 
 async function encrypt(key, text) {
-    const iv = crypto.getRandomValues(new Uint8Array(16))
-    const cipher = await crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, encoder.encode(text))
-    return { ivHex: toHex(iv), cipherHex: toHex(cipher) }
+    const iv = crypto.getRandomValues(new Uint8Array(12))
+    const full = new Uint8Array(
+        await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode(text))
+    )
+    // Web Crypto appends the 16-byte authentication tag to the ciphertext.
+    // Split it off so the demo matches our server's v3:iv:tag:cipher layout.
+    const tag = full.slice(full.length - 16)
+    const cipher = full.slice(0, full.length - 16)
+    return { ivHex: toHex(iv), tagHex: toHex(tag), cipherHex: toHex(cipher) }
 }
 
-async function decrypt(key, ivHex, cipherHex) {
+async function decrypt(key, ivHex, tagHex, cipherHex) {
+    const cipher = fromHex(cipherHex)
+    const tag = fromHex(tagHex)
+    const full = new Uint8Array(cipher.length + tag.length)
+    full.set(cipher)
+    full.set(tag, cipher.length)
     const plain = await crypto.subtle.decrypt(
-        { name: 'AES-CBC', iv: fromHex(ivHex) }, key, fromHex(cipherHex)
+        { name: 'AES-GCM', iv: fromHex(ivHex) }, key, full
     )
     return decoder.decode(plain)
 }
 
 export default function ProofOfPrivacy() {
     const [text, setText] = useState('I felt anxious today, but I went for a walk and it helped.')
-    const [out, setOut] = useState(null) // { ivHex, cipherHex }
+    const [out, setOut] = useState(null) // { ivHex, tagHex, cipherHex }
     const [revealed, setRevealed] = useState(false)
     const keyRef = useRef(null)
 
@@ -36,7 +47,7 @@ export default function ProofOfPrivacy() {
     useEffect(() => {
         let active = true
         crypto.subtle
-            .generateKey({ name: 'AES-CBC', length: 256 }, true, ['encrypt', 'decrypt'])
+            .generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt'])
             .then((k) => { if (active) keyRef.current = k })
         return () => { active = false }
     }, [])
@@ -54,7 +65,7 @@ export default function ProofOfPrivacy() {
         return () => { active = false }
     }, [text])
 
-    const stored = out ? `v2:${out.ivHex}:${out.cipherHex}` : ''
+    const stored = out ? `v3:${out.ivHex}:${out.tagHex}:${out.cipherHex}` : ''
 
     return (
         <div className="min-h-screen bg-cream text-ink font-sans">
@@ -65,12 +76,12 @@ export default function ProofOfPrivacy() {
                     Proof of privacy
                 </p>
                 <h1 className="font-serif text-4xl md:text-5xl leading-tight">
-                    Watch your words become unreadable.
+                    See exactly what we store.
                 </h1>
                 <p className="mt-5 text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
-                    This is real encryption running in your browser right now. The same
-                    AES-256 scheme lunev uses on the server. Type anything below and watch what
-                    actually gets stored.
+                    This is real AES-256 encryption, running in your browser right now. It is the
+                    same scheme that protects your entries on our servers. Type something below and
+                    watch what actually gets saved.
                 </p>
             </header>
 
@@ -91,7 +102,7 @@ export default function ProofOfPrivacy() {
 
                 {/* Arrow */}
                 <div className="text-center text-sand-400 text-sm">
-                    AES-256, 256-bit key, fresh random IV every time
+                    AES-256-GCM, 256-bit key, fresh random value every time
                 </div>
 
                 {/* What the database stores */}
@@ -115,8 +126,8 @@ export default function ProofOfPrivacy() {
                         </motion.code>
                     </AnimatePresence>
                     <p className="text-[11px] text-sand-400 mt-3">
-                        Notice it changes completely on every keystroke, even retyping the same
-                        letter, because each encryption uses a new random value.
+                        It changes completely on every keystroke. Type the same thing twice and you
+                        still get something different, because every encryption uses a new random value.
                     </p>
                 </div>
 
@@ -129,7 +140,7 @@ export default function ProofOfPrivacy() {
                         <button
                             onClick={async () => {
                                 if (!out || !keyRef.current) return
-                                await decrypt(keyRef.current, out.ivHex, out.cipherHex)
+                                await decrypt(keyRef.current, out.ivHex, out.tagHex, out.cipherHex)
                                 setRevealed((r) => !r)
                             }}
                             className="text-xs bg-sage-500 hover:bg-sage-600 text-white rounded-lg px-3 py-1.5 transition-colors"
@@ -147,16 +158,16 @@ export default function ProofOfPrivacy() {
             <section className="max-w-3xl mx-auto px-6 md:px-10 mt-14 mb-8 grid gap-6">
                 {[
                     {
-                        h: 'The key never lives with your data',
-                        p: 'Encryption keys are kept as server secrets. They are never written into the database alongside your entries. A leaked database is a pile of locked boxes with no keys in sight.',
+                        h: 'The key is not stored next to your words',
+                        p: 'The key is a server secret. It is never written into the database beside your entries. If someone copied the whole database, they would have a pile of locked boxes and no key to open them.',
                     },
                     {
-                        h: 'If we were breached, the data would be noise',
-                        p: 'What you see in the black box above is exactly what an attacker would get: random-looking hex. Without the key, there is no feasible way to turn it back into your words.',
+                        h: 'A leak would just be noise',
+                        p: 'The scramble in the black box above is all an attacker would walk away with. Without the key, there is no realistic way to turn it back into anything you wrote.',
                     },
                     {
-                        h: 'Same input, different output, every time',
-                        p: 'A fresh random IV (initialization vector) means identical entries never produce identical ciphertext, so no one can even tell which entries match.',
+                        h: 'The same thing twice looks different both times',
+                        p: 'Every entry gets a fresh random value, so two identical notes never produce the same output. Nobody can even tell which entries match.',
                     },
                 ].map((item) => (
                     <div key={item.h} className="border-l-2 border-sage-300 pl-5">
@@ -164,6 +175,19 @@ export default function ProofOfPrivacy() {
                         <p className="text-sand-700 leading-relaxed text-sm">{item.p}</p>
                     </div>
                 ))}
+
+                <div className="bg-surface border border-sand-200 rounded-2xl p-5 mt-2">
+                    <h3 className="font-serif text-xl mb-1.5">Where this protects you, and where it stops</h3>
+                    <p className="text-sand-700 leading-relaxed text-sm">
+                        This keeps your words safe if our database ever leaks, which is how private
+                        data usually gets out. It does not mean we could never read an entry, since
+                        the key lives on our servers. If you want to write something that never
+                        reaches us at all, the vent box in{' '}
+                        <Link to="/calm" className="text-sage-700 hover:text-sage-900 font-medium">Calm space</Link>
+                        {' '}is never saved anywhere. There is nothing to leak, because nothing is
+                        ever written down.
+                    </p>
+                </div>
             </section>
 
             <section className="text-center pb-20 px-6">

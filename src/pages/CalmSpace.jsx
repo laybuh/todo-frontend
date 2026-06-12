@@ -21,6 +21,7 @@ function BoxBreathing() {
         <div className="flex flex-col items-center justify-center py-8">
             <div className="relative w-48 h-48 flex items-center justify-center">
                 <motion.div
+                    initial={{ scale: 1 }}
                     animate={{ scale: PHASES[phase].scale }}
                     transition={{ duration: 4, ease: 'easeInOut' }}
                     className="w-24 h-24 rounded-full bg-sage-300/60 border border-sage-400"
@@ -72,6 +73,35 @@ function Grounding() {
     )
 }
 
+// ── Vent: write whatever you need, never saved, never sent anywhere ──
+function VentSpace() {
+    // Lives only in memory. Nothing here is ever persisted or sent to a server,
+    // and it disappears the moment this page unmounts.
+    const [text, setText] = useState('')
+    return (
+        <div className="bg-surface border border-sand-200 rounded-2xl p-6">
+            <textarea
+                className="field min-h-[160px] resize-y"
+                placeholder="Let it out. Anything at all. No one will ever read this, and it is never saved."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+            />
+            <div className="flex items-center justify-between gap-3 mt-3">
+                <p className="text-xs text-sand-500 flex items-center gap-1.5">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" className="shrink-0" aria-hidden="true">
+                        <rect x="4" y="11" width="16" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
+                        <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                    Private and never saved. The second you leave this page it is gone. Nothing is stored or sent anywhere.
+                </p>
+                {text && (
+                    <button onClick={() => setText('')} className="btn-soft px-4 py-2 text-sm shrink-0">Clear it</button>
+                )}
+            </div>
+        </div>
+    )
+}
+
 export default function CalmSpace() {
     return (
         <DashboardLayout active="calm">
@@ -91,6 +121,11 @@ export default function CalmSpace() {
                     <h2 className="font-serif text-xl mb-3">Ground yourself</h2>
                     <Grounding />
                 </div>
+            </div>
+
+            <div className="mt-8">
+                <h2 className="font-serif text-xl mb-3">Vent</h2>
+                <VentSpace />
             </div>
 
             <p className="text-sm text-sand-500 mt-8">

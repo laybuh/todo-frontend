@@ -47,8 +47,9 @@ export default function Home() {
                         initial="hidden" animate="show" custom={2} variants={fade}
                         className="mt-6 text-sm text-sand-700 max-w-md mx-auto leading-relaxed"
                     >
-                        We brings your tasks, journal, moods, and affirmations into one safe space.
-                        Everything you write is encrypted. Even we cannot read it.
+                        lunev keeps your tasks, journal, moods, and affirmations in one private space.
+                        Everything you write is encrypted before it is saved, so if our database ever
+                        leaked, all anyone would find is scrambled text.
                     </motion.p>
                     <motion.div
                         initial="hidden" animate="show" custom={3} variants={fade}
@@ -103,7 +104,7 @@ export default function Home() {
                         Privacy isn't an afterthought.
                     </h2>
                     <p className="text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
-                        Your journal entries, moods, and notes are encrypted with a key that never touches your actual data. If our servers were ever breached, everything leaked would be completely unreadable. Don't take our word for it. See it for yourself.
+                        Your journal entries, moods, and notes are encrypted before they are saved, and the key is never stored next to them in the database. If our database ever leaked, everything in it would be scrambled and unreadable. Don't take our word for it. See it for yourself.
                     </p>
                     <Link
                         to="/proof-of-privacy"
