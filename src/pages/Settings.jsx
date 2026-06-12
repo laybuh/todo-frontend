@@ -17,6 +17,7 @@ export default function Settings() {
     // Delete account: confirm by re-typing the email, then it's gone for good.
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
     const [deleteEmail, setDeleteEmail] = useState('')
+    const [deletePassword, setDeletePassword] = useState('')
     const [deleteError, setDeleteError] = useState('')
 
     const token = getAccessToken()
@@ -77,7 +78,7 @@ export default function Settings() {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
                 headers: { authorization: token },
-                data: { email: deleteEmail },
+                data: { email: deleteEmail, password: deletePassword },
             })
             clearAccessToken()
             localStorage.removeItem('lastActive')
@@ -186,7 +187,7 @@ export default function Settings() {
                             <p className="text-sm text-sand-600">Permanently remove your account and everything in it. This cannot be undone.</p>
                         </div>
                         <button
-                            onClick={() => { setShowDeleteConfirm(true); setDeleteEmail(''); setDeleteError('') }}
+                            onClick={() => { setShowDeleteConfirm(true); setDeleteEmail(''); setDeletePassword(''); setDeleteError('') }}
                             className="text-sm text-rose-600 hover:text-rose-700 font-medium shrink-0"
                         >
                             Delete
@@ -199,7 +200,7 @@ export default function Settings() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm">
                     <div className="w-full max-w-sm bg-surface border border-sand-200 rounded-2xl p-7 shadow-xl">
                         <h2 className="font-serif text-2xl mb-1">Delete account</h2>
-                        <p className="text-sm text-sand-600 mb-4">Enter your email to confirm. This cannot be undone.</p>
+                        <p className="text-sm text-sand-600 mb-4">Enter your email and password to confirm. This cannot be undone.</p>
                         <input
                             className="field mb-3"
                             type="email"
@@ -207,12 +208,19 @@ export default function Settings() {
                             value={deleteEmail}
                             onChange={(e) => { setDeleteEmail(e.target.value); setDeleteError('') }}
                         />
+                        <input
+                            className="field mb-3"
+                            type="password"
+                            placeholder="Your password"
+                            value={deletePassword}
+                            onChange={(e) => { setDeletePassword(e.target.value); setDeleteError('') }}
+                        />
                         {deleteError && <p className="alert-error mb-3">{deleteError}</p>}
                         <div className="flex gap-2">
-                            <button onClick={handleDeleteAccount} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors">
+                            <button onClick={handleDeleteAccount} disabled={!deleteEmail || !deletePassword} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
                                 Yes, delete
                             </button>
-                            <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">
+                            <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeletePassword(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">
                                 Cancel
                             </button>
                         </div>
