@@ -1,68 +1,90 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import DashboardLayout from '../components/DashboardLayout'
+import OnboardingModal from '../components/OnboardingModal'
+import MoodCheckIn from '../components/MoodCheckIn'
+import { getAccessToken, clearAccessToken } from '../authClient'
+
+const ENERGY = {
+    low: { label: 'Low', badge: 'bg-sage-100 text-sage-700 border-sage-200' },
+    medium: { label: 'Medium', badge: 'bg-sand-200 text-sand-700 border-sand-300' },
+    high: { label: 'High', badge: 'bg-rose-100 text-rose-700 border-rose-200' },
+}
+
+function formatCountdown(targetMs, nowMs) {
+    const diff = targetMs - nowMs
+    if (diff <= 0) return 'now'
+    const mins = Math.floor(diff / 60000)
+    const days = Math.floor(mins / 1440)
+    const hours = Math.floor((mins % 1440) / 60)
+    const m = mins % 60
+    if (days > 0) return `${days}d ${hours}h`
+    if (hours > 0) return `${hours}h ${m}m`
+    return `${m}m`
+}
 
 export default function Dashboard() {
     const [todos, setTodos] = useState([])
     const [title, setTitle] = useState('')
+    const [energy, setEnergy] = useState('')
+    const [showCapsule, setShowCapsule] = useState(false)
+    const [unlockDate, setUnlockDate] = useState('')
     const [filter, setFilter] = useState('all')
+    const [energyFilter, setEnergyFilter] = useState('all')
     const [username, setUsername] = useState('')
+    const [now, setNow] = useState(Date.now())
+    const [intention, setIntention] = useState(null)
+    const [needsMood, setNeedsMood] = useState(false)
+    const [showOnboarding, setShowOnboarding] = useState(localStorage.getItem('onboarded') === 'false')
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
     const [deleteEmail, setDeleteEmail] = useState('')
     const [deleteError, setDeleteError] = useState('')
-    const navigate = useNavigate()
 
-    const token = localStorage.getItem('token')
+    const token = getAccessToken()
 
     useEffect(() => {
-        if (!token) {
-            navigate('/login')
-            return
-        }
-
-        const lastActive = localStorage.getItem('lastActive')
-        if (lastActive && Date.now() - parseInt(lastActive) > 60 * 60 * 1000) {
-            localStorage.removeItem('token')
-            localStorage.removeItem('lastActive')
-            navigate('/login')
-            return
-        }
-
+        if (!token) return
         fetchTodos()
-        const payload = JSON.parse(atob(token.split('.')[1]))
-        setUsername(payload.username || 'there')
+        loadIntention()
+        loadMoodStatus()
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]))
+            setUsername(payload.username || 'there')
+        } catch {
+            setUsername('there')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const loadIntention = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/affirmations/today`, { headers: { authorization: token } })
+            setIntention(res.data)
+        } catch { /* non-critical */ }
+    }
+
+    const loadMoodStatus = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/moods/today`, { headers: { authorization: token } })
+            if (!res.data) setNeedsMood(true)
+        } catch { /* non-critical */ }
+    }
+
+    // Tick so countdowns stay live, and auto-reveal capsules as they unlock.
     useEffect(() => {
-        const timeout = { current: null }
-
-        const resetTimer = () => {
-            localStorage.setItem('lastActive', Date.now().toString())
-            clearTimeout(timeout.current)
-            timeout.current = setTimeout(() => {
-                localStorage.removeItem('token')
-                localStorage.removeItem('lastActive')
-                navigate('/login')
-            }, 60 * 60 * 1000)
-        }
-
-        window.addEventListener('mousemove', resetTimer)
-        window.addEventListener('keydown', resetTimer)
-        window.addEventListener('click', resetTimer)
-
-        resetTimer()
-
-        return () => {
-            clearTimeout(timeout.current)
-            window.removeEventListener('mousemove', resetTimer)
-            window.removeEventListener('keydown', resetTimer)
-            window.removeEventListener('click', resetTimer)
-        }
+        const id = setInterval(() => setNow(Date.now()), 30000)
+        return () => clearInterval(id)
     }, [])
+    useEffect(() => {
+        const justUnlocked = todos.some((t) => t.locked && t.unlock_date && new Date(t.unlock_date).getTime() <= now)
+        if (justUnlocked) fetchTodos()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [now])
 
     const fetchTodos = async () => {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/todos`, {
-            headers: { authorization: token }
+            headers: { authorization: token },
         })
         setTodos(res.data)
     }
@@ -70,131 +92,229 @@ export default function Dashboard() {
     const addTodo = async (e) => {
         e.preventDefault()
         if (!title.trim()) return
-        await axios.post(`${import.meta.env.VITE_API_URL}/todos`, { title }, {
-            headers: { authorization: token }
-        })
+        await axios.post(`${import.meta.env.VITE_API_URL}/todos`,
+            { title, energy: energy || null, unlock_date: showCapsule && unlockDate ? unlockDate : null },
+            { headers: { authorization: token } }
+        )
         setTitle('')
+        setEnergy('')
+        setUnlockDate('')
+        setShowCapsule(false)
         fetchTodos()
     }
 
     const deleteTodo = async (id) => {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/todos/${id}`, {
-            headers: { authorization: token }
-        })
+        await axios.delete(`${import.meta.env.VITE_API_URL}/todos/${id}`, { headers: { authorization: token } })
         fetchTodos()
     }
 
     const toggleComplete = async (id, completed) => {
-        await axios.put(`${import.meta.env.VITE_API_URL}/todos/${id}`, { completed: !completed }, {
-            headers: { authorization: token }
-        })
+        await axios.put(`${import.meta.env.VITE_API_URL}/todos/${id}`, { completed: !completed }, { headers: { authorization: token } })
         fetchTodos()
-    }
-
-    const handleLogout = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('lastActive')
-        navigate('/login')
     }
 
     const handleDeleteAccount = async () => {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
                 headers: { authorization: token },
-                data: { email: deleteEmail }
+                data: { email: deleteEmail },
             })
-            localStorage.removeItem('token')
+            clearAccessToken()
             localStorage.removeItem('lastActive')
-            navigate('/login')
+            localStorage.removeItem('onboarded')
+            window.location.href = '/login'
         } catch (err) {
             setDeleteError(err.response?.data?.error || 'Something went wrong.')
         }
     }
 
-    const filtered = todos.filter(t => {
-        if (filter === 'active') return !t.completed
-        if (filter === 'completed') return t.completed
+    const filtered = todos.filter((t) => {
+        if (filter === 'active' && t.completed) return false
+        if (filter === 'completed' && !t.completed) return false
+        if (energyFilter !== 'all' && t.energy !== energyFilter) return false
         return true
     })
 
+    const statusFilters = [
+        { key: 'all', label: 'All' },
+        { key: 'active', label: 'Active' },
+        { key: 'completed', label: 'Completed' },
+    ]
+
+    // Minimum selectable capsule time = now (local), formatted for datetime-local.
+    const minDateTime = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+
     return (
-        <div className="dashboard-container">
-            <div className="dashboard-header">
-                <div className="brand">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        <p className="app-name">dospace</p>
-                    </Link>
-                    <p className="app-tagline">Your space. Your tasks.</p>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <Link to="/change-password" className="logout-btn">Change password</Link>
-                    <button className="logout-btn delete-account-btn" onClick={() => setShowDeleteConfirm(true)}>Delete account</button>
-                    <button className="logout-btn" onClick={handleLogout}>Sign out</button>
-                </div>
-            </div>
-
-            {showDeleteConfirm && (
-                <div className="delete-modal-overlay">
-                    <div className="delete-modal">
-                        <h2>Delete account</h2>
-                        <p>Enter your email to confirm. This cannot be undone.</p>
-                        <input
-                            type="email"
-                            placeholder="Your email"
-                            value={deleteEmail}
-                            onChange={e => {
-                                setDeleteEmail(e.target.value)
-                                setDeleteError('')
-                            }}
-                        />
-                        {deleteError && <p className="error">{deleteError}</p>}
-                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                            <button className="delete-account-btn logout-btn" onClick={handleDeleteAccount}>Yes, delete</button>
-                            <button className="logout-btn" onClick={() => {
-                                setShowDeleteConfirm(false)
-                                setDeleteEmail('')
-                                setDeleteError('')
-                            }}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
+        <DashboardLayout active="today">
+            {showOnboarding && <OnboardingModal onComplete={() => setShowOnboarding(false)} />}
+            {!showOnboarding && needsMood && (
+                <MoodCheckIn onComplete={() => setNeedsMood(false)} onClose={() => setNeedsMood(false)} />
             )}
 
-            <div className="dashboard-main">
-                <h1>Hi, {username}!</h1>
+            <h1 className="font-serif text-3xl mb-1">Hi, {username}.</h1>
+            <p className="text-sand-600 mb-6">What would you like to get done today?</p>
 
-                <form className="add-form" onSubmit={addTodo}>
+            {intention ? (
+                <div className="bg-sage-50 border border-sage-100 rounded-2xl p-5 mb-7">
+                    <p className="text-xs uppercase tracking-wide text-sage-600 mb-1">Today’s intention</p>
+                    <p className="font-serif text-xl text-ink">“{intention.text}”</p>
+                </div>
+            ) : (
+                <Link to="/affirmations" className="block bg-surface border border-dashed border-sand-300 rounded-2xl p-4 mb-7 text-sm text-sand-600 hover:border-sand-400 transition-colors">
+                    Set a daily intention. Add your first affirmation.
+                </Link>
+            )}
+
+            <form onSubmit={addTodo} className="mb-5">
+                <div className="flex gap-2">
                     <input
+                        className="field"
                         type="text"
-                        placeholder="Add a new task..."
+                        placeholder="Add a task…"
                         value={title}
-                        onChange={e => setTitle(e.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
-                    <button type="submit">Add</button>
-                </form>
-
-                <div className="filter-tabs">
-                    <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All</button>
-                    <button className={filter === 'active' ? 'active' : ''} onClick={() => setFilter('active')}>Active</button>
-                    <button className={filter === 'completed' ? 'active' : ''} onClick={() => setFilter('completed')}>Completed</button>
+                    <button type="submit" className="btn-primary w-auto px-6">Add</button>
                 </div>
 
-                <div className="todo-list">
-                    {filtered.length === 0 && <p className="empty">No tasks here.</p>}
-                    {filtered.map(todo => (
-                        <div className={`todo-item ${todo.completed ? 'done' : ''}`} key={todo.id}>
+                <div className="flex flex-wrap items-center gap-2 mt-3">
+                    <span className="text-xs text-sand-500 mr-1">Energy:</span>
+                    {Object.entries(ENERGY).map(([lvl, cfg]) => (
+                        <button
+                            type="button"
+                            key={lvl}
+                            onClick={() => setEnergy(energy === lvl ? '' : lvl)}
+                            className={`text-xs rounded-full px-3 py-1 border transition-colors ${
+                                energy === lvl ? cfg.badge : 'border-sand-200 text-sand-500 hover:border-sand-400'
+                            }`}
+                        >
+                            {cfg.label}
+                        </button>
+                    ))}
+
+                    <button
+                        type="button"
+                        onClick={() => setShowCapsule((s) => !s)}
+                        className={`text-xs rounded-full px-3 py-1 border transition-colors ml-1 ${
+                            showCapsule ? 'bg-ink text-cream border-ink' : 'border-sand-200 text-sand-500 hover:border-sand-400'
+                        }`}
+                    >
+                        Time capsule
+                    </button>
+
+                    {showCapsule && (
+                        <input
+                            type="datetime-local"
+                            value={unlockDate}
+                            min={minDateTime}
+                            onChange={(e) => setUnlockDate(e.target.value)}
+                            className="text-xs rounded-lg border border-sand-200 bg-surface px-2 py-1 text-ink"
+                        />
+                    )}
+                </div>
+                {showCapsule && (
+                    <p className="text-xs text-sand-500 mt-2">
+                        This task stays sealed and unreadable until the date you choose.
+                    </p>
+                )}
+            </form>
+
+            {/* Filters */}
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+                {statusFilters.map((f) => (
+                    <button
+                        key={f.key}
+                        onClick={() => setFilter(f.key)}
+                        className={`text-sm rounded-full px-4 py-1.5 border transition-colors ${
+                            filter === f.key ? 'bg-ink text-cream border-ink' : 'bg-transparent text-sand-600 border-sand-200 hover:border-sand-400'
+                        }`}
+                    >
+                        {f.label}
+                    </button>
+                ))}
+                <span className="w-px h-5 bg-sand-200 mx-1" />
+                {['all', 'low', 'medium', 'high'].map((lvl) => (
+                    <button
+                        key={lvl}
+                        onClick={() => setEnergyFilter(lvl)}
+                        className={`text-xs rounded-full px-3 py-1.5 border transition-colors ${
+                            energyFilter === lvl ? 'bg-sage-500 text-white border-sage-500' : 'bg-transparent text-sand-500 border-sand-200 hover:border-sand-400'
+                        }`}
+                    >
+                        {lvl === 'all' ? 'Any energy' : ENERGY[lvl].label}
+                    </button>
+                ))}
+            </div>
+
+            {/* List */}
+            <div className="flex flex-col gap-2">
+                {filtered.length === 0 && (
+                    <p className="text-center text-sand-400 py-12">Nothing here yet. Add your first task above.</p>
+                )}
+                {filtered.map((todo) =>
+                    todo.locked ? (
+                        <div key={todo.id} className="flex items-center gap-3 bg-sand-100/60 border border-dashed border-sand-300 rounded-xl px-4 py-3">
+                            <span className="flex-1 text-sm text-sand-600">
+                                Sealed task. Unlocks in {formatCountdown(new Date(todo.unlock_date).getTime(), now)}
+                                <span className="block text-xs text-sand-400">
+                                    {new Date(todo.unlock_date).toLocaleString()}
+                                </span>
+                            </span>
+                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-400 hover:text-rose-500 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
+                        </div>
+                    ) : (
+                        <div key={todo.id} className="flex items-center gap-3 bg-surface border border-sand-200 rounded-xl px-4 py-3 hover:border-sand-300 transition-colors">
                             <input
                                 type="checkbox"
                                 checked={!!todo.completed}
                                 onChange={() => toggleComplete(todo.id, todo.completed)}
+                                className="w-4 h-4 accent-sage-500 cursor-pointer shrink-0"
                             />
-                            <span>{todo.title}</span>
-                            <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>✕</button>
+                            <span className={`flex-1 text-sm ${todo.completed ? 'line-through text-sand-400' : 'text-ink'}`}>
+                                {todo.title}
+                            </span>
+                            {todo.energy && ENERGY[todo.energy] && (
+                                <span className={`text-[10px] rounded-full px-2 py-0.5 border ${ENERGY[todo.energy].badge} shrink-0`}>
+                                    {ENERGY[todo.energy].label}
+                                </span>
+                            )}
+                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-400 hover:text-rose-500 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
                         </div>
-                    ))}
-                </div>
+                    )
+                )}
             </div>
-        </div>
+
+            {/* Account actions */}
+            <div className="mt-12 pt-6 border-t border-sand-200">
+                <button onClick={() => setShowDeleteConfirm(true)} className="text-xs text-sand-500 hover:text-rose-600 transition-colors">
+                    Delete my account
+                </button>
+            </div>
+
+            {showDeleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm">
+                    <div className="w-full max-w-sm bg-surface border border-sand-200 rounded-2xl p-7 shadow-xl">
+                        <h2 className="font-serif text-2xl mb-1">Delete account</h2>
+                        <p className="text-sm text-sand-600 mb-4">Enter your email to confirm. This cannot be undone.</p>
+                        <input
+                            className="field mb-3"
+                            type="email"
+                            placeholder="Your email"
+                            value={deleteEmail}
+                            onChange={(e) => { setDeleteEmail(e.target.value); setDeleteError('') }}
+                        />
+                        {deleteError && <p className="alert-error mb-3">{deleteError}</p>}
+                        <div className="flex gap-2">
+                            <button onClick={handleDeleteAccount} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors">
+                                Yes, delete
+                            </button>
+                            <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </DashboardLayout>
     )
 }

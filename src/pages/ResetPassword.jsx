@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
+import AuthLayout from '../components/AuthLayout'
 
 export default function ResetPassword() {
     const [newPassword, setNewPassword] = useState('')
@@ -15,6 +16,7 @@ export default function ResetPassword() {
         if (!token) {
             navigate('/forgot-password')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleSubmit = async (e) => {
@@ -26,6 +28,7 @@ export default function ResetPassword() {
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/auth/reset-password`, { token, newPassword })
             setSuccess('Password reset! Redirecting to sign in...')
+            setError('')
             setTimeout(() => navigate('/login'), 2000)
         } catch (err) {
             setError(err.response?.data?.error || 'Something went wrong.')
@@ -33,35 +36,19 @@ export default function ResetPassword() {
     }
 
     return (
-        <div className="auth-container">
-            <div className="auth-box">
-                <div className="brand">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        <p className="app-name">dospace</p>
-                    </Link>
-                    <p className="app-tagline">Your space. Your tasks.</p>
-                </div>
-                <h1>Reset password.</h1>
-                <p className="auth-sub">Enter your new password below.</p>
-                {error && <p className="error">{error}</p>}
-                {success && <p className="success">{success}</p>}
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="password"
-                        placeholder="New password (8+ chars, 1 capital, 1 symbol)"
-                        value={newPassword}
-                        onChange={e => setNewPassword(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm new password"
-                        value={confirmPassword}
-                        onChange={e => setConfirmPassword(e.target.value)}
-                    />
-                    <button type="submit">Reset password</button>
-                </form>
-                <p className="auth-link"><Link to="/login">← Back to sign in</Link></p>
-            </div>
-        </div>
+        <AuthLayout
+            title="Reset password."
+            subtitle="Enter your new password below."
+            footer={<Link className="text-sage-700 hover:text-sage-900 font-medium" to="/login">← Back to sign in</Link>}
+        >
+            {error && <p className="alert-error mb-3">{error}</p>}
+            {success && <p className="alert-success mb-3">{success}</p>}
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                <input className="field" type="password" placeholder="New password (8+ chars, 1 capital, 1 symbol)" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                <input className="field" type="password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                <button className="btn-primary mt-1" type="submit">Reset password</button>
+            </form>
+        </AuthLayout>
     )
 }

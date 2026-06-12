@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
+import AuthLayout from '../components/AuthLayout'
+import { setAccessToken, getAccessToken } from '../authClient'
 
 export default function Login() {
     const [email, setEmail] = useState('')
@@ -9,9 +11,10 @@ export default function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
+        if (getAccessToken()) {
             navigate('/dashboard')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [searchParams] = useSearchParams()
@@ -21,7 +24,12 @@ export default function Login() {
         e.preventDefault()
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password })
-            localStorage.setItem('token', res.data.token)
+            if (res.data.mfaRequired) {
+                navigate('/verify-otp', { state: { email: res.data.email } })
+                return
+            }
+            setAccessToken(res.data.token)
+            localStorage.setItem('onboarded', res.data.onboarded ? 'true' : 'false')
             navigate('/dashboard')
         } catch (err) {
             setError(err.response?.data?.error || 'Invalid email or password.')
@@ -29,39 +37,23 @@ export default function Login() {
     }
 
     return (
-        <div className="auth-container">
-            <div className="auth-box">
-                <div className="brand">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        <p className="app-name">dospace</p>
-                    </Link>
-                    <p className="app-tagline">Your space. Your tasks.</p>
-                </div>
-                <h1>Sign in.</h1>
-                <p className="auth-desc">A private, encrypted space for your tasks. Everything you write is secured and only visible to you. Your tasks are fully encrypted; we cannot read them, and neither can anyone else.</p>
-                <p className="auth-sub">Sign in to your account.</p>
-                {verified && <p className="success">Email verified! You can now sign in.</p>}
-                {error && <p className="error">{error}</p>}
-                <form onSubmit={handleLogin}>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    <button type="submit">Sign in</button>
-                </form>
-                <p className="auth-link">Don't have an account? <Link to="/register">Register</Link></p>
-                <p className="forgot-text">
-                    <Link to="/forgot-password">Forgot your password?</Link>
-                </p>
-            </div>
-        </div>
+        <AuthLayout
+            title="Welcome back."
+            subtitle="Sign in to your private space."
+            footer={<>Don’t have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/register">Create one</Link></>}
+        >
+            {verified && <p className="alert-success mb-3">Email verified! You can now sign in.</p>}
+            {error && <p className="alert-error mb-3">{error}</p>}
+
+            <form onSubmit={handleLogin} className="flex flex-col gap-3">
+                <input className="field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input className="field" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                <button className="btn-primary mt-1" type="submit">Sign in</button>
+            </form>
+
+            <p className="mt-4 text-center text-xs text-sand-500">
+                <Link className="hover:text-ink transition-colors" to="/forgot-password">Forgot your password?</Link>
+            </p>
+        </AuthLayout>
     )
 }

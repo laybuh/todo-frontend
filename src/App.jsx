@@ -1,23 +1,76 @@
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
+import { bootstrapAuth, getAccessToken } from './authClient'
+
+// Eager: the public landing + auth (first paint).
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Dashboard from './pages/Dashboard'
-import ChangePassword from './pages/ChangePassword'
-import ForgotPassword from './pages/ForgotPassword'
-import ResetPassword from './pages/ResetPassword'
+
+const VerifyOTP = lazy(() => import('./pages/VerifyOTP'))
+const Settings = lazy(() => import('./pages/Settings'))
+
+// Lazy: in-app pages load on demand. Keeps recharts/framer out of first load.
+const ProofOfPrivacy = lazy(() => import('./pages/ProofOfPrivacy'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Focus = lazy(() => import('./pages/Focus'))
+const Journal = lazy(() => import('./pages/Journal'))
+const Mood = lazy(() => import('./pages/Mood'))
+const Affirmations = lazy(() => import('./pages/Affirmations'))
+const CrisisCorner = lazy(() => import('./pages/CrisisCorner'))
+const ChangePassword = lazy(() => import('./pages/ChangePassword'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword'))
+
+function Loading() {
+  return <div className="min-h-screen bg-cream" />
+}
+
+// Gate for routes that need a signed-in user. If an access token is already in
+// memory (just signed in), render immediately. On a fresh page load the token is
+// gone, so try to restore the session from the httpOnly refresh cookie before
+// deciding whether to show the page or bounce to /login.
+function RequireAuth({ children }) {
+  const [status, setStatus] = useState(getAccessToken() ? 'authed' : 'pending')
+
+  useEffect(() => {
+    if (getAccessToken()) return
+    let active = true
+    bootstrapAuth().then((ok) => {
+      if (active) setStatus(ok ? 'authed' : 'guest')
+    })
+    return () => { active = false }
+  }, [])
+
+  if (status === 'pending') return <Loading />
+  if (status === 'guest') return <Navigate to="/login" replace />
+  return children
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-      </Routes>
+      <ScrollToTop />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/proof-of-privacy" element={<ProofOfPrivacy />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
+          <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+          <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
+          <Route path="/focus" element={<RequireAuth><Focus /></RequireAuth>} />
+          <Route path="/journal" element={<RequireAuth><Journal /></RequireAuth>} />
+          <Route path="/mood" element={<RequireAuth><Mood /></RequireAuth>} />
+          <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
+          <Route path="/crisis" element={<RequireAuth><CrisisCorner /></RequireAuth>} />
+          <Route path="/change-password" element={<RequireAuth><ChangePassword /></RequireAuth>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }

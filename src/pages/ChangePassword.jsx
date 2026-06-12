@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
+import AuthLayout from '../components/AuthLayout'
+import { getAccessToken } from '../authClient'
 
 export default function ChangePassword() {
     const [currentPassword, setCurrentPassword] = useState('')
@@ -8,18 +10,15 @@ export default function ChangePassword() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    const [username, setUsername] = useState('')
     const navigate = useNavigate()
 
-    const token = localStorage.getItem('token')
+    const token = getAccessToken()
 
     useEffect(() => {
         if (!token) {
             navigate('/login')
-            return
         }
-        const payload = JSON.parse(atob(token.split('.')[1]))
-        setUsername(payload.username || '')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleChange = async (e) => {
@@ -34,6 +33,7 @@ export default function ChangePassword() {
                 { headers: { authorization: token } }
             )
             setSuccess('Password updated! Redirecting...')
+            setError('')
             setTimeout(() => navigate('/dashboard'), 2000)
         } catch (err) {
             setError(err.response?.data?.error || 'Something went wrong.')
@@ -41,41 +41,20 @@ export default function ChangePassword() {
     }
 
     return (
-        <div className="auth-container">
-            <div className="auth-box">
-                <div className="brand">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        <p className="app-name">dospace</p>
-                    </Link>
-                    <p className="app-tagline">Your space. Your tasks.</p>
-                </div>
-                <h1>Change password.</h1>
-                <p className="auth-sub">Keep your account secure.</p>
-                {error && <p className="error">{error}</p>}
-                {success && <p className="success">{success}</p>}
-                <form onSubmit={handleChange}>
-                    <input
-                        type="password"
-                        placeholder="Current password"
-                        value={currentPassword}
-                        onChange={e => setCurrentPassword(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="New password"
-                        value={newPassword}
-                        onChange={e => setNewPassword(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm new password"
-                        value={confirmPassword}
-                        onChange={e => setConfirmPassword(e.target.value)}
-                    />
-                    <button type="submit">Update password</button>
-                </form>
-                <p className="auth-link"><Link to="/dashboard">← Back to dashboard</Link></p>
-            </div>
-        </div>
+        <AuthLayout
+            title="Change password."
+            subtitle="Keep your account secure."
+            footer={<Link className="text-sage-700 hover:text-sage-900 font-medium" to="/dashboard">← Back to dashboard</Link>}
+        >
+            {error && <p className="alert-error mb-3">{error}</p>}
+            {success && <p className="alert-success mb-3">{success}</p>}
+
+            <form onSubmit={handleChange} className="flex flex-col gap-3">
+                <input className="field" type="password" placeholder="Current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+                <input className="field" type="password" placeholder="New password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                <input className="field" type="password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                <button className="btn-primary mt-1" type="submit">Update password</button>
+            </form>
+        </AuthLayout>
     )
 }
