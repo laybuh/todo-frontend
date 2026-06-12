@@ -174,16 +174,19 @@ export default function Dashboard() {
                             {cfg.label}
                         </button>
                     ))}
+                </div>
 
+                <div className="flex flex-wrap items-center gap-2 mt-2">
                     <button
                         type="button"
                         onClick={() => setShowCapsule((s) => !s)}
-                        className={`text-xs rounded-full px-3 py-1 border transition-colors ml-1 ${
+                        className={`text-xs rounded-full px-3 py-1 border transition-colors ${
                             showCapsule ? 'bg-ink text-cream border-ink' : 'border-sand-200 text-sand-500 hover:border-sand-400'
                         }`}
                     >
                         Time capsule
                     </button>
+                    <span className="text-xs text-sand-400">Seal a task so it stays hidden until a date you choose.</span>
 
                     {showCapsule && (
                         <input
@@ -195,11 +198,6 @@ export default function Dashboard() {
                         />
                     )}
                 </div>
-                {showCapsule && (
-                    <p className="text-xs text-sand-500 mt-2">
-                        This task stays sealed and unreadable until the date you choose.
-                    </p>
-                )}
             </form>
 
             {/* Filters */}
