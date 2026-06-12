@@ -181,13 +181,12 @@ export default function ProofOfPrivacy() {
                     <h3 className="font-serif text-xl mb-1.5">What this covers, and what it does not.</h3>
                     <p className="text-sand-700 leading-relaxed text-sm">
                         Your entries are encrypted before they are saved, so if our database ever
-                        leaked, all anyone would find is scrambled text. We do not read what you
-                        write, and we will never sell or share it. To be transparent, the encryption
-                        key lives on our servers, so we are not claiming it is impossible for us to
-                        access an entry. It is a commitment that we will not. As with anything you
-                        put online, it is always wise to use your own judgment with the most
-                        sensitive details. And if you want to write something that never reaches our
-                        servers at all, the vent box in{' '}
+                        leaked, all anyone would find is scrambled text. To be transparent, the key
+                        that unscrambles them lives on our own servers, never handed off to anyone
+                        else. Our promise is simple: we do not read what you write, and we will never
+                        sell or share it. As with anything you put online, it is still wise to use
+                        your own judgment with the most sensitive details. And if you want to write
+                        something that never reaches our servers at all, the vent box in{' '}
                         <Link to="/calm" className="text-sage-700 hover:text-sage-900 font-medium">Calm space</Link>
                         {' '}is never saved anywhere. Nothing to leak, because nothing is ever written down.
                     </p>
