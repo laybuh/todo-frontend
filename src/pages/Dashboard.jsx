@@ -64,7 +64,12 @@ export default function Dashboard() {
     const loadMoodStatus = async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/moods/today`, { headers: { authorization: token } })
-            if (!res.data) setNeedsMood(true)
+            // Don't re-prompt today if they already checked in (even if they later
+            // deleted it) or tapped "Later" earlier today.
+            const today = new Date().toDateString()
+            const snoozedToday = localStorage.getItem('moodSnoozedDate') === today
+            const answeredToday = localStorage.getItem('moodAnsweredDate') === today
+            if (!res.data && !snoozedToday && !answeredToday) setNeedsMood(true)
         } catch { /* non-critical */ }
     }
 
@@ -131,7 +136,13 @@ export default function Dashboard() {
         <DashboardLayout active="today">
             {showOnboarding && <OnboardingModal onComplete={() => setShowOnboarding(false)} />}
             {!showOnboarding && needsMood && (
-                <MoodCheckIn onComplete={() => setNeedsMood(false)} onClose={() => setNeedsMood(false)} />
+                <MoodCheckIn
+                    onComplete={() => setNeedsMood(false)}
+                    onClose={() => {
+                        localStorage.setItem('moodSnoozedDate', new Date().toDateString())
+                        setNeedsMood(false)
+                    }}
+                />
             )}
 
             <h1 className="font-serif text-3xl mb-1">Hi, {username}.</h1>

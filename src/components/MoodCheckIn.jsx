@@ -22,6 +22,9 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
         setSaving(true)
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/moods`, { mood, note }, { headers: { authorization: token } })
+            // Remember they answered today so the dashboard won't re-prompt, even if
+            // they later delete their mood history.
+            localStorage.setItem('moodAnsweredDate', new Date().toDateString())
             setSavedMood(mood)
             setSaved(true)
         } finally {

@@ -46,7 +46,7 @@ function Grounding() {
     const [step, setStep] = useState(0)
     const done = step >= GROUNDING.length
     return (
-        <div className="bg-surface border border-sand-200 rounded-2xl p-6 text-center">
+        <div className="bg-surface border border-sand-200 rounded-2xl p-6 text-center flex-1 flex flex-col justify-center">
             {done ? (
                 <>
                     <p className="text-sand-700 mb-4 mt-2">You’re here, and you’re grounded. Take one more slow breath.</p>
@@ -111,13 +111,13 @@ export default function CalmSpace() {
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
-                <div>
+                <div className="flex flex-col">
                     <h2 className="font-serif text-xl mb-3">Breathe</h2>
-                    <div className="bg-surface border border-sand-200 rounded-2xl">
+                    <div className="bg-surface border border-sand-200 rounded-2xl flex-1 flex items-center justify-center">
                         <BoxBreathing />
                     </div>
                 </div>
-                <div>
+                <div className="flex flex-col">
                     <h2 className="font-serif text-xl mb-3">Ground yourself</h2>
                     <Grounding />
                 </div>
