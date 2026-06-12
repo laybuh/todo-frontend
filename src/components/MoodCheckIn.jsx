@@ -58,7 +58,7 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
                 ) : (
                     <>
                         <h2 className="font-serif text-2xl mb-1">How are you feeling?</h2>
-                        <p className="text-sm text-sand-600 mb-5">A private daily check-in.</p>
+                        <p className="text-sm text-sand-600 mb-5">A daily check-in.</p>
 
                         <div className="flex justify-between gap-2 mb-5">
                             {MOODS.map((m) => (
