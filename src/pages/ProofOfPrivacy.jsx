@@ -79,9 +79,10 @@ export default function ProofOfPrivacy() {
                     See exactly what we store.
                 </h1>
                 <p className="mt-5 text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
-                    This is real AES-256 encryption, running in your browser right now. It is the
-                    same scheme that protects your entries on our servers. Type something below and
-                    watch what actually gets saved.
+                    You write real things here. So we want to show you exactly how we protect them.
+                    This is real AES-256 encryption running in your browser right now, the same
+                    scheme that protects your entries on our servers. Type something below and watch
+                    what actually gets saved.
                 </p>
             </header>
 
@@ -159,15 +160,15 @@ export default function ProofOfPrivacy() {
                 {[
                     {
                         h: 'The key is not stored next to your words',
-                        p: 'The key is a server secret. It is never written into the database beside your entries. If someone copied the whole database, they would have a pile of locked boxes and no key to open them.',
+                        p: 'The encryption key is a server secret, never written into the database beside your entries. If someone copied the whole database, they would have a pile of locked boxes and nothing to open them with.',
                     },
                     {
                         h: 'A leak would just be noise',
-                        p: 'The scramble in the black box above is all an attacker would walk away with. Without the key, there is no realistic way to turn it back into anything you wrote.',
+                        p: 'That scrambled output above is exactly what an attacker would walk away with. Without the key, there is no way to turn it back into anything you wrote.',
                     },
                     {
                         h: 'The same thing twice looks different both times',
-                        p: 'Every entry gets a fresh random value, so two identical notes never produce the same output. Nobody can even tell which entries match.',
+                        p: 'Every entry gets a fresh random value before it is encrypted, so two identical notes never produce the same output. Nobody can even tell which entries match.',
                     },
                 ].map((item) => (
                     <div key={item.h} className="border-l-2 border-sage-300 pl-5">
@@ -177,15 +178,18 @@ export default function ProofOfPrivacy() {
                 ))}
 
                 <div className="bg-surface border border-sand-200 rounded-2xl p-5 mt-2">
-                    <h3 className="font-serif text-xl mb-1.5">Where this protects you, and where it stops</h3>
+                    <h3 className="font-serif text-xl mb-1.5">What this covers, and what it does not.</h3>
                     <p className="text-sand-700 leading-relaxed text-sm">
-                        This keeps your words safe if our database ever leaks, which is how private
-                        data usually gets out. It does not mean we could never read an entry, since
-                        the key lives on our servers. If you want to write something that never
-                        reaches us at all, the vent box in{' '}
+                        Your entries are encrypted before they are saved, so if our database ever
+                        leaked, all anyone would find is scrambled text. We do not read what you
+                        write, and we will never sell or share it. To be transparent, the encryption
+                        key lives on our servers, so we are not claiming it is impossible for us to
+                        access an entry. It is a commitment that we will not. As with anything you
+                        put online, it is always wise to use your own judgment with the most
+                        sensitive details. And if you want to write something that never reaches our
+                        servers at all, the vent box in{' '}
                         <Link to="/calm" className="text-sage-700 hover:text-sage-900 font-medium">Calm space</Link>
-                        {' '}is never saved anywhere. There is nothing to leak, because nothing is
-                        ever written down.
+                        {' '}is never saved anywhere. Nothing to leak, because nothing is ever written down.
                     </p>
                 </div>
             </section>

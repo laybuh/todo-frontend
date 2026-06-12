@@ -19,7 +19,10 @@ export default function PublicNav() {
 
     return (
         <nav className="flex items-center justify-between px-6 md:px-10 py-5 max-w-6xl mx-auto w-full">
-            <Link to="/" className="text-2xl font-serif tracking-wide text-ink">
+            <Link
+                to="/"
+                className="text-2xl font-serif font-bold tracking-wide bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent"
+            >
                 lunev
             </Link>
             <div className="flex items-center gap-3 md:gap-5 text-sm">

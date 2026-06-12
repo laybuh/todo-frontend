@@ -4,12 +4,12 @@ import PublicNav from '../components/PublicNav'
 import PublicFooter from '../components/PublicFooter'
 
 const features = [
-    { title: 'To-Do List', body: 'Tasks with energy levels and reminders specialized for you.' },
-    { title: 'Safe Space Journal', body: 'Brain dumps, gratitude, letters to your future self, and more.' },
-    { title: 'Mood Tracking', body: 'A daily check-in with a private history only you can see.' },
-    { title: 'Affirmations', body: 'Your own affirmations, shown when you need it.' },
-    { title: 'Focus Center', body: 'One task, full screen, timer, and task management.' },
-    { title: 'Calm Space', body: 'A quiet place to ground yourself.' },
+    { title: 'To-Do List', body: 'Tasks organized around how much energy you actually have, not just what needs to get done.' },
+    { title: 'Safe Space Journal', body: 'Brain dumps, gratitude, letters to your future self. A place to put what is in your head.' },
+    { title: 'Mood Tracking', body: 'A daily check-in and a private history of how you have been feeling.' },
+    { title: 'Affirmations', body: 'Write your own affirmations and see them when you need them.' },
+    { title: 'Focus Center', body: 'One task, full screen, a timer. Nothing else.' },
+    { title: 'Calm Space', body: 'Breathing, grounding, and a place to vent when it is a lot.' },
 ]
 
 const fade = {
@@ -33,23 +33,22 @@ export default function Home() {
                         className="inline-flex items-center gap-2 rounded-full border border-sage-200 bg-sage-50 text-sage-700/70 font-medium tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
                     >
                         <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-dusk to-mauve opacity-70" />
-                        Private by design
+                        Built for your mind
                     </motion.p>
                     <motion.h1
                         initial="hidden" animate="show" custom={1} variants={fade}
                         className="font-serif text-4xl md:text-6xl leading-tight max-w-3xl mx-auto"
                     >
-                        A {' '}
-                        <span className="bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent">private</span>
-                        {' '}space for you and your mind.
+                        <span className="block">Get things done.</span>
+                        <span className="block bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent">Take care of your mind.</span>
                     </motion.h1>
                     <motion.p
                         initial="hidden" animate="show" custom={2} variants={fade}
                         className="mt-6 text-sm text-sand-700 max-w-md mx-auto leading-relaxed"
                     >
-                        lunev keeps your tasks, journal, moods, and affirmations in one private space.
-                        Everything you write is encrypted before it is saved, so if our database ever
-                        leaked, all anyone would find is scrambled text.
+                        We bring your tasks, journal, moods, and affirmations into one place.
+                        Built for people who want to stay on top of things and actually feel okay.
+                        Everything you write is encrypted before it is saved.
                     </motion.p>
                     <motion.div
                         initial="hidden" animate="show" custom={3} variants={fade}
@@ -101,10 +100,10 @@ export default function Home() {
                 <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-br from-sage-50 via-cream to-rose-50/80" />
                 <div className="max-w-4xl mx-auto px-6 md:px-10 py-16 text-center">
                     <h2 className="font-serif text-3xl md:text-4xl mb-4">
-                        Privacy isn't an afterthought.
+                        We care about what you write here.
                     </h2>
                     <p className="text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
-                        Your journal entries, moods, and notes are encrypted before they are saved, and the key is never stored next to them in the database. If our database ever leaked, everything in it would be scrambled and unreadable. Don't take our word for it. See it for yourself.
+                        Your journal entries, mood notes, and tasks are encrypted before they are saved. The key is never stored next to them in the database. If our database ever leaked, all anyone would find is scrambled text. Don't take our word for it. See it for yourself.
                     </p>
                     <Link
                         to="/proof-of-privacy"
