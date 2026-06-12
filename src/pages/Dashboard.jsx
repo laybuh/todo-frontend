@@ -197,7 +197,7 @@ export default function Dashboard() {
                     >
                         Time capsule
                     </button>
-                    <span className="text-xs text-sand-400">Save a task so it stays hidden until a date you choose.</span>
+                    <span className="hidden md:inline text-xs text-sand-400">Save a task so it stays hidden until a date you choose.</span>
 
                     {showCapsule && (
                         <input

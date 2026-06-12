@@ -106,7 +106,7 @@ export default function VerifyOTP() {
             {error && <p className="alert-error mb-3">{error}</p>}
             {resendMsg && <p className="alert-success mb-3">{resendMsg}</p>}
 
-            <div className="flex justify-between gap-2 mb-5" onPaste={onPaste}>
+            <div className="flex justify-center gap-1.5 sm:gap-2 mb-5" onPaste={onPaste}>
                 {digits.map((d, i) => (
                     <input
                         key={i}
@@ -117,7 +117,7 @@ export default function VerifyOTP() {
                         value={d}
                         onChange={(e) => setDigit(i, e.target.value)}
                         onKeyDown={(e) => onKeyDown(i, e)}
-                        className="w-12 h-14 text-center text-xl font-medium bg-surface border border-sand-300 rounded-xl text-ink outline-none focus:border-sage-400 focus:bg-white transition-colors"
+                        className="w-10 h-12 sm:w-12 sm:h-14 text-center text-lg sm:text-xl font-medium bg-surface border border-sand-300 rounded-xl text-ink outline-none focus:border-sage-400 focus:bg-white transition-colors"
                     />
                 ))}
             </div>

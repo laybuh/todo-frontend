@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { getAccessToken, clearAccessToken } from '../authClient'
@@ -21,6 +21,7 @@ export default function DashboardLayout({ active, children }) {
     const navigate = useNavigate()
     const timeoutRef = useRef(null)
     const token = getAccessToken()
+    const [menuOpen, setMenuOpen] = useState(false)
 
     const logout = () => {
         // Best-effort server-side revoke of the refresh token; never block logout on it.
@@ -120,12 +121,41 @@ export default function DashboardLayout({ active, children }) {
                 {/* Mobile top bar */}
                 <div className="md:hidden flex items-center justify-between px-5 py-4 border-b border-sand-200 bg-surface/60">
                     <Link to="/" className="font-serif text-xl text-ink">lunev</Link>
-                    <button onClick={logout} className="text-sm text-sand-600">Sign out</button>
+                    <button onClick={() => setMenuOpen(true)} aria-label="Open menu" className="text-ink p-1 -mr-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                            <path d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
-                {/* Mobile nav row */}
-                <div className="md:hidden flex gap-1 overflow-x-auto px-3 py-2 border-b border-sand-200 bg-surface/40">
-                    <NavItems />
-                </div>
+
+                {/* Mobile slide-in drawer */}
+                {menuOpen && (
+                    <div className="md:hidden fixed inset-0 z-50" role="dialog" aria-modal="true">
+                        <div className="absolute inset-0 bg-ink/40" onClick={() => setMenuOpen(false)} />
+                        <aside className="absolute left-0 top-0 h-full w-64 max-w-[80%] bg-surface border-r border-sand-200 p-5 flex flex-col shadow-xl">
+                            <div className="flex items-center justify-between mb-6">
+                                <Link to="/" onClick={() => setMenuOpen(false)} className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk bg-clip-text text-transparent">lunev</Link>
+                                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-sand-500 hover:text-ink p-1">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                        <path d="M6 6l12 12M18 6L6 18" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <nav className="flex flex-col gap-1">
+                                <NavItems onNavigate={() => setMenuOpen(false)} />
+                            </nav>
+                            <div className="mt-auto pt-5 border-t border-sand-200 flex flex-col gap-1">
+                                <Link to="/settings" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-sand-700 hover:bg-sand-100 transition-colors">
+                                    <span>Settings</span>
+                                </Link>
+                                <button onClick={logout} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-sand-700 hover:bg-sand-100 transition-colors text-left">
+                                    <span>Sign out</span>
+                                </button>
+                                <a href="https://ko-fi.com/layba" target="_blank" rel="noopener noreferrer" className="self-start ml-3 mt-2 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 rounded px-2 py-1 hover:bg-mauve/30 transition-colors">Buy me a coffee</a>
+                            </div>
+                        </aside>
+                    </div>
+                )}
 
                 <main className="flex-1 w-full max-w-3xl mx-auto px-5 md:px-10 py-8">
                     {children}
