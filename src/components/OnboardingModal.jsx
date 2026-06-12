@@ -16,8 +16,8 @@ const STEPS = [
         body: 'Everything you write is scrambled with strong encryption (AES-256) before it is saved. What lives in our database is unreadable code, not your private thoughts.',
     },
     {
-        title: 'Even we cannot read it.',
-        body: 'The key needed to unscramble your data is never stored next to it. So even we cannot read your entries. If our database were ever breached, the leaked data would just be noise.',
+        title: 'A leak would just be noise.',
+        body: 'The key that unscrambles your data is never kept next to it in our database. If our database were ever leaked, what spilled out would just be unreadable code. We do not read your entries, and we will never sell or share them.',
     },
     {
         title: 'Start whenever you are ready.',
