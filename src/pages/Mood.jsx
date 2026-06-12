@@ -47,7 +47,7 @@ export default function Mood() {
             <div className="flex items-start justify-between gap-4 mb-7">
                 <div>
                     <h1 className="font-serif text-3xl mb-1">Mood</h1>
-                    <p className="text-sand-600">A gentle record of how you’ve been feeling.</p>
+                    <p className="text-sand-600">A record of how you’ve been feeling.</p>
                 </div>
                 <button onClick={() => setCheckIn(true)} className="btn-primary w-auto px-5 shrink-0">
                     {today ? 'Update today' : 'Check in'}

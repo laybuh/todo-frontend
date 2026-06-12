@@ -4,10 +4,10 @@ import DashboardLayout from '../components/DashboardLayout'
 import { getAccessToken } from '../authClient'
 
 const BUILTIN_TYPES = [
-    { key: 'brain_dump', label: 'Brain dump', prompt: 'Let it all out. No structure needed.' },
+    { key: 'brain_dump', label: 'Brain dump', prompt: 'Let it all out. Say words.' },
     { key: 'gratitude', label: 'Gratitude', prompt: 'What are you grateful for today?' },
-    { key: 'letter_future', label: 'Letter to future self', prompt: 'Write to the you of tomorrow, or years from now.' },
-    { key: 'on_my_mind', label: 'What’s on my mind', prompt: 'What’s taking up space in your head right now?' },
+    { key: 'letter_future', label: 'Letter to future self', prompt: 'Write to the you in the future.' },
+    { key: 'on_my_mind', label: 'What’s on your mind?', prompt: 'What’s taking up space in your head right now?' },
 ]
 
 const api = (path) => `${import.meta.env.VITE_API_URL}${path}`
@@ -110,8 +110,8 @@ export default function Journal() {
 
     return (
         <DashboardLayout active="journal">
-            <h1 className="font-serif text-3xl mb-1">Safe Space journal</h1>
-            <p className="text-sand-600 mb-7">A private place to think out loud. Every entry is encrypted. Only you can read it.</p>
+            <h1 className="font-serif text-3xl mb-1">Journal</h1>
+            <p className="text-sand-600 mb-7">Write whatever you need to.</p>
 
             {/* Type picker */}
             <div className="flex flex-wrap gap-2 mb-3">

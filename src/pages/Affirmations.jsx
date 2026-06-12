@@ -49,16 +49,16 @@ export default function Affirmations() {
 
     return (
         <DashboardLayout active="affirmations">
-            <h1 className="font-serif text-3xl mb-1">Intentions</h1>
+            <h1 className="font-serif text-3xl mb-1">Affirmations</h1>
             <p className="text-sand-600 mb-7">
-                Words to come back to. One appears on your dashboard each day as today’s intention. All private and encrypted.
+                Words to come back to. One will on your dashboard each day as today’s intention.
             </p>
 
             <form onSubmit={add} className="mb-8">
                 <div className="flex gap-2">
                     <input
                         className="field"
-                        placeholder="Write an affirmation… e.g. “I am allowed to rest.”"
+                        placeholder="Write an affirmation… e.g. “I am gorgeous.”"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         maxLength={500}
