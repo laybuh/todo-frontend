@@ -109,7 +109,7 @@ export default function DashboardLayout({ active, children }) {
                         href="https://ko-fi.com/layba"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="self-start ml-3 mt-2 font-mono text-[11px] uppercase tracking-widest text-[#6c5a93] border border-mauve/60 bg-mauve/20 rounded-md px-2.5 py-1 hover:bg-mauve/30 transition-colors"
+                        className="self-start ml-3 mt-2 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 rounded px-2 py-1 hover:bg-mauve/30 transition-colors"
                     >
                         Buy me a coffee
                     </a>
