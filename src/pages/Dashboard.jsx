@@ -139,7 +139,7 @@ export default function Dashboard() {
 
             {intention ? (
                 <div className="bg-sage-50 border border-sage-100 rounded-2xl p-5 mb-7">
-                    <p className="text-xs uppercase tracking-wide text-sage-600 mb-1">Today’s intention</p>
+                    <p className="text-xs uppercase tracking-wide text-sage-600 mb-1">Today’s affirmation</p>
                     <p className="font-serif text-xl text-ink">“{intention.text}”</p>
                 </div>
             ) : (
