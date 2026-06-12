@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* ── lunev design tokens — warm cozy light theme ──────────────────────── */
 @theme {
   --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
   /* headings use a sleek geometric display face. `font-serif` is kept as the
-     heading utility name across the app; it now maps to Space Grotesk. */
-  --font-serif: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+     heading utility name across the app; it now maps to Outfit. */
+  --font-serif: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   /* surfaces */
   --color-cream: #f7f2ea;      /* page background */
@@ -70,7 +70,7 @@
 /* ── reusable component classes for the warm theme ────────────────────── */
 @layer components {
   .field {
-    @apply w-full bg-surface border border-sand-300 rounded-xl px-4 py-3 text-ink outline-none transition-colors;
+    @apply w-full bg-surface border border-sand-300 rounded-xl px-4 py-3 text-sm text-ink outline-none transition-colors;
   }
   .field::placeholder { @apply text-sand-400; }
   .field:focus { @apply border-sage-400 bg-white; }

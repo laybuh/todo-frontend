@@ -30,10 +30,10 @@ export default function Home() {
                 <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-20 text-center">
                     <motion.p
                         initial="hidden" animate="show" variants={fade}
-                        className="inline-flex items-center gap-2 rounded-full border border-sage-200 bg-sage-50 text-sage-700/70 font-medium tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-sage-200 bg-sage-50 text-sage-700/90 font-mono tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
                     >
-                        <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-dusk to-mauve opacity-70" />
-                        Built for your mind
+                        <span aria-hidden className="text-dusk">&gt;</span>
+                        built for your mind
                     </motion.p>
                     <motion.h1
                         initial="hidden" animate="show" custom={1} variants={fade}
@@ -64,8 +64,9 @@ export default function Home() {
 
                     <motion.p
                         initial="hidden" animate="show" custom={4} variants={fade}
-                        className="mt-8 inline-flex items-center rounded-md border border-sand-300 bg-transparent text-[11px] text-sand-500 tracking-wide px-3 py-1"
+                        className="mt-8 inline-flex items-center gap-2 rounded-md border border-sand-300 bg-transparent font-mono text-[11px] text-sand-500 tracking-wide px-3 py-1"
                     >
+                        <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-sage-400 animate-pulse" />
                         AES-256 encrypted
                     </motion.p>
                 </div>
@@ -81,9 +82,10 @@ export default function Home() {
                             custom={i} variants={fade}
                             className="bg-surface border border-sand-200 rounded-2xl p-6 shadow-[0_1px_0_rgba(63,58,52,0.04),0_8px_24px_-12px_rgba(63,58,52,0.12)]"
                         >
-                            <div className="h-1 w-10 rounded-full mb-4 bg-gradient-to-r from-sage-400 to-peach" />
-                            <h3 className="font-serif text-xl mb-1.5">{f.title}</h3>
-                            <p className="text-sm text-sand-600 leading-relaxed">{f.body}</p>
+                            <h3 className={`inline-flex items-center font-mono text-xs uppercase tracking-widest border rounded-md px-3 py-1 mb-3.5 ${i % 2 === 0 ? 'text-sage-700 border-sage-300 bg-sage-50' : 'text-[#6c5a93] border-mauve/60 bg-mauve/20'}`}>
+                                {f.title}
+                            </h3>
+                            <p className="text-[13px] text-sand-600 leading-relaxed">{f.body}</p>
                         </motion.div>
                     ))}
                 </div>

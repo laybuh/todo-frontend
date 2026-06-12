@@ -44,7 +44,7 @@ export default function Login() {
     return (
         <AuthLayout
             title="Welcome back."
-            subtitle="Sign in to your private space."
+            subtitle="A space just for you."
             footer={<>Don’t have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/register">Create one</Link></>}
         >
             {showVerifyNotice && (

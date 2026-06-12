@@ -51,7 +51,7 @@ export default function Affirmations() {
         <DashboardLayout active="affirmations">
             <h1 className="font-serif text-3xl mb-1">Affirmations</h1>
             <p className="text-sand-600 mb-7">
-                Words to come back to. One will on your dashboard each day as today’s intention.
+                Words to come back to. One will be on your dashboard each day as today’s intention.
             </p>
 
             <form onSubmit={add} className="mb-8">

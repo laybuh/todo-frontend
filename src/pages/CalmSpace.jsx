@@ -82,7 +82,7 @@ function VentSpace() {
         <div className="bg-surface border border-sand-200 rounded-2xl p-6">
             <textarea
                 className="field min-h-[160px] resize-y"
-                placeholder="Let it out. Anything at all. No one will ever read this, and it is never saved."
+                placeholder="Type whatever. Vent it out. No one will ever read this."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
             />
@@ -92,7 +92,7 @@ function VentSpace() {
                         <rect x="4" y="11" width="16" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
                         <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" />
                     </svg>
-                    Private and never saved. The second you leave this page it is gone. Nothing is stored or sent anywhere.
+                    Never saved. The second you leave this page it is gone. Nothing is stored or sent anywhere.
                 </p>
                 {text && (
                     <button onClick={() => setText('')} className="btn-soft px-4 py-2 text-sm shrink-0">Clear it</button>

@@ -37,7 +37,7 @@ export default function Register() {
     return (
         <AuthLayout
             title="Create your space."
-            subtitle="A calmer, more private place for your mind."
+            subtitle="A calmer place for your mind."
             footer={<>Already have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/login">Sign in</Link></>}
         >
             {error && <p className="alert-error mb-3">{error}</p>}
