@@ -103,7 +103,7 @@ export default function Home() {
                         to="/proof-of-privacy"
                         className="inline-block mt-8 bg-ink hover:bg-sand-800 text-cream rounded-xl px-7 py-3.5 font-medium transition-colors shadow-sm"
                     >
-                        Watch your words get encrypted
+                        Watch your words get encrypted.
                     </Link>
                 </div>
             </section>
