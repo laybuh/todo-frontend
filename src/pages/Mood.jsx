@@ -12,7 +12,6 @@ const fmtDate = (d) => new Date(d).toLocaleDateString(undefined, { month: 'short
 export default function Mood() {
     const [history, setHistory] = useState([])
     const [today, setToday] = useState(undefined) // undefined = loading, null = none
-    const [selected, setSelected] = useState(null)
     const [checkIn, setCheckIn] = useState(false)
     const [clearing, setClearing] = useState(false)
     const [deleting, setDeleting] = useState(false)
@@ -34,7 +33,6 @@ export default function Mood() {
         setDeleting(true)
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/moods`, auth)
-            setSelected(null)
             setClearing(false)
             await load()
         } finally {
@@ -86,11 +84,6 @@ export default function Mood() {
                                 <LineChart
                                     data={chartData}
                                     margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
-                                    onClick={(state) => {
-                                        if (state && state.activePayload && state.activePayload.length) {
-                                            setSelected(state.activePayload[0].payload)
-                                        }
-                                    }}
                                 >
                                     <CartesianGrid strokeDasharray="3 3" stroke="#e7ddcd" />
                                     <XAxis dataKey="dateLabel" tick={{ fontSize: 11, fill: '#9a8b72' }} stroke="#e7ddcd" />
@@ -110,20 +103,20 @@ export default function Mood() {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
-                        <p className="text-xs text-sand-500 text-center mt-2">Tap a point to read that day’s note.</p>
                     </div>
 
-                    {selected && (
-                        <div className="bg-surface border border-sand-200 rounded-2xl p-5">
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-medium text-sand-700">
-                                    {moodMeta(selected.mood).label}
-                                </span>
-                                <span className="text-xs text-sand-400">{fmtDate(selected.entry_date)}</span>
-                            </div>
-                            <p className="text-sm text-ink whitespace-pre-wrap leading-relaxed">
-                                {selected.note || <span className="text-sand-400">No note for this day.</span>}
-                            </p>
+                    {history.some((m) => m.note) && (
+                        <div className="flex flex-col gap-2 mb-2">
+                            <p className="text-xs uppercase tracking-wide text-sand-400 mb-1">Notes</p>
+                            {[...history].reverse().filter((m) => m.note).map((m) => (
+                                <div key={m.id} className="bg-surface border border-sand-200 rounded-2xl p-4">
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="text-sm font-medium text-sand-700">{moodMeta(m.mood).label}</span>
+                                        <span className="text-xs text-sand-400">{fmtDate(m.entry_date)}</span>
+                                    </div>
+                                    <p className="text-sm text-ink whitespace-pre-wrap leading-relaxed">{m.note}</p>
+                                </div>
+                            ))}
                         </div>
                     )}
 
