@@ -183,8 +183,8 @@ export default function ProofOfPrivacy() {
                         Your entries are encrypted before they are saved, so if our database ever
                         leaked, all anyone would find is scrambled text. To be transparent, the key
                         that unscrambles them lives on our own servers, never handed off to anyone
-                        else. Our promise is simple: we do not read what you write, and we will never
-                        sell or share it. As with anything you put online, it is still wise to use
+                        else. We make a commitment never to access or read your entries, and we will
+                        never sell or share them. As with anything you put online, it is still wise to use
                         your own judgment with the most sensitive details. And if you want to write
                         something that never reaches our servers at all, the vent box in{' '}
                         <Link to="/calm" className="text-sage-700 hover:text-sage-900 font-medium">Calm space</Link>
