@@ -117,7 +117,7 @@ export default function Home() {
                 href="https://ko-fi.com/layba"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fixed bottom-5 right-5 z-40 font-mono text-[11px] uppercase tracking-widest text-[#6c5a93] border border-mauve/60 bg-mauve/20 backdrop-blur rounded-md px-3 py-1.5 shadow-sm hover:bg-mauve/30 transition-colors"
+                className="fixed bottom-4 right-4 z-40 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 backdrop-blur rounded px-2 py-1 shadow-sm hover:bg-mauve/30 transition-colors"
             >
                 Buy me a coffee
             </a>
