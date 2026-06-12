@@ -47,7 +47,7 @@ export default function Home() {
                         className="mt-6 text-sm text-sand-700 max-w-md mx-auto leading-relaxed"
                     >
                         We bring your tasks, journal, moods, and affirmations into one place.
-                        Built for people who want to stay on top of things and actually feel okay.
+                        Built for people who want to feel better mentally and focus on tasks.
                         Everything you write is encrypted before it is saved.
                     </motion.p>
                     <motion.div
@@ -59,12 +59,6 @@ export default function Home() {
                             className="bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-7 py-3.5 font-medium transition-colors shadow-sm"
                         >
                             Create your space
-                        </Link>
-                        <Link
-                            to="/proof-of-privacy"
-                            className="bg-surface/80 backdrop-blur border border-sand-200 hover:border-sand-300 text-ink rounded-xl px-7 py-3.5 font-medium transition-colors"
-                        >
-                            See the proof
                         </Link>
                     </motion.div>
 
