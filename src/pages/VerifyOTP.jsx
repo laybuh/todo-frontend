@@ -117,7 +117,7 @@ export default function VerifyOTP() {
                         value={d}
                         onChange={(e) => setDigit(i, e.target.value)}
                         onKeyDown={(e) => onKeyDown(i, e)}
-                        className="w-12 h-14 text-center text-xl font-medium bg-cream/50 border border-sand-200 rounded-xl text-ink outline-none focus:border-sage-400 focus:bg-surface transition-colors"
+                        className="w-12 h-14 text-center text-xl font-medium bg-surface border border-sand-300 rounded-xl text-ink outline-none focus:border-sage-400 focus:bg-white transition-colors"
                     />
                 ))}
             </div>

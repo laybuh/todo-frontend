@@ -42,13 +42,13 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
                         <p className="text-sand-600 mb-5">You marked today as {moodLabel(savedMood).toLowerCase()}.</p>
                         {savedMood <= 2 && (
                             <p className="text-sand-700 mb-5">
-                                That sounds heavy. Writing it down can help. Want to{' '}
+                                I'm very sorry to hear. Writing it down can help. Want to{' '}
                                 <Link to="/journal" className="text-sage-700 underline decoration-sand-300" onClick={onComplete}>open your journal</Link>?
                             </p>
                         )}
                         {savedMood >= 4 && (
                             <p className="text-sand-700 mb-5">
-                                Hold onto it. Want to write a{' '}
+                                I love that for you. Want to write a{' '}
                                 <Link to="/journal" className="text-sage-700 underline decoration-sand-300" onClick={onComplete}>gratitude entry</Link>?
                             </p>
                         )}
@@ -57,8 +57,8 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
                     </div>
                 ) : (
                     <>
-                        <h2 className="font-serif text-2xl mb-1">How are you, really?</h2>
-                        <p className="text-sm text-sand-600 mb-5">A quiet daily check-in. Only you will ever see this.</p>
+                        <h2 className="font-serif text-2xl mb-1">How are you feeling?</h2>
+                        <p className="text-sm text-sand-600 mb-5">A private daily check-in.</p>
 
                         <div className="flex justify-between gap-2 mb-5">
                             {MOODS.map((m) => (
@@ -77,7 +77,7 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
 
                         <textarea
                             className="field min-h-[80px] resize-y mb-4"
-                            placeholder="Anything you want to add? Optional, and encrypted."
+                            placeholder="Anything you want to add? Optional."
                             value={note}
                             onChange={(e) => setNote(e.target.value)}
                         />

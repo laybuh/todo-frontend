@@ -19,6 +19,7 @@ const Journal = lazy(() => import('./pages/Journal'))
 const Mood = lazy(() => import('./pages/Mood'))
 const Affirmations = lazy(() => import('./pages/Affirmations'))
 const CrisisCorner = lazy(() => import('./pages/CrisisCorner'))
+const CalmSpace = lazy(() => import('./pages/CalmSpace'))
 const ChangePassword = lazy(() => import('./pages/ChangePassword'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const ResetPassword = lazy(() => import('./pages/ResetPassword'))
@@ -65,6 +66,7 @@ function App() {
           <Route path="/journal" element={<RequireAuth><Journal /></RequireAuth>} />
           <Route path="/mood" element={<RequireAuth><Mood /></RequireAuth>} />
           <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
+          <Route path="/calm" element={<RequireAuth><CalmSpace /></RequireAuth>} />
           <Route path="/crisis" element={<RequireAuth><CrisisCorner /></RequireAuth>} />
           <Route path="/change-password" element={<RequireAuth><ChangePassword /></RequireAuth>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

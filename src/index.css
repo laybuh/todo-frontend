@@ -70,10 +70,10 @@
 /* ── reusable component classes for the warm theme ────────────────────── */
 @layer components {
   .field {
-    @apply w-full bg-cream/50 border border-sand-200 rounded-xl px-4 py-3 text-ink outline-none transition-colors;
+    @apply w-full bg-surface border border-sand-300 rounded-xl px-4 py-3 text-ink outline-none transition-colors;
   }
   .field::placeholder { @apply text-sand-400; }
-  .field:focus { @apply border-sage-400 bg-surface; }
+  .field:focus { @apply border-sage-400 bg-white; }
 
   .btn-primary {
     @apply w-full inline-flex items-center justify-center bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-5 py-3 font-medium transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed;

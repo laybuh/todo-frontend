@@ -67,7 +67,7 @@ export default function ProofOfPrivacy() {
                 <h1 className="font-serif text-4xl md:text-5xl leading-tight">
                     Watch your words become unreadable.
                 </h1>
-                <p className="mt-5 text-sand-700 leading-relaxed">
+                <p className="mt-5 text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
                     This is real encryption running in your browser right now. The same
                     AES-256 scheme lunev uses on the server. Type anything below and watch what
                     actually gets stored.

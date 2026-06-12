@@ -9,11 +9,11 @@ import { getAccessToken } from '../authClient'
 const STEPS = [
     {
         title: 'Welcome to lunev.',
-        body: 'This is your private space for tasks, journaling, moods, and daily intentions. Somewhere calm to look after both your to-do list and your mind.',
+        body: 'This is your safe space for tasks, journaling, moods, and daily intentions. Somewhere calm to look after both your to-do list and your mind.',
     },
     {
         title: 'Your words are encrypted.',
-        body: 'Everything you write is scrambled with strong encryption (AES-256) before it is saved. What lives in our database is unreadable code, not your actual words.',
+        body: 'Everything you write is scrambled with strong encryption (AES-256) before it is saved. What lives in our database is unreadable code, not your private thoughts.',
     },
     {
         title: 'Even we cannot read it.',

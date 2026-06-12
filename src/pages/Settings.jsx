@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/DashboardLayout'
-import { getAccessToken } from '../authClient'
+import { getAccessToken, clearAccessToken } from '../authClient'
 
 export default function Settings() {
     const [me, setMe] = useState(null)
@@ -13,6 +13,11 @@ export default function Settings() {
     const [confirmingDisable, setConfirmingDisable] = useState(false)
     const [disablePassword, setDisablePassword] = useState('')
     const [disableError, setDisableError] = useState('')
+
+    // Delete account: confirm by re-typing the email, then it's gone for good.
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+    const [deleteEmail, setDeleteEmail] = useState('')
+    const [deleteError, setDeleteError] = useState('')
 
     const token = getAccessToken()
     const auth = { headers: { authorization: token } }
@@ -65,6 +70,21 @@ export default function Settings() {
             setDisableError(err.response?.data?.error || 'Could not turn this off. Please try again.')
         } finally {
             setSaving(false)
+        }
+    }
+
+    const handleDeleteAccount = async () => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
+                headers: { authorization: token },
+                data: { email: deleteEmail },
+            })
+            clearAccessToken()
+            localStorage.removeItem('lastActive')
+            localStorage.removeItem('onboarded')
+            window.location.href = '/login'
+        } catch (err) {
+            setDeleteError(err.response?.data?.error || 'Something went wrong.')
         }
     }
 
@@ -157,6 +177,45 @@ export default function Settings() {
                             Questions or concerns? Email{' '}
                             <a href="mailto:hello@layba.dev" className="text-sage-700 hover:text-sage-900">hello@layba.dev</a>.
                         </p>
+                    </div>
+
+                    {/* Delete account */}
+                    <div className="bg-surface border border-sand-200 rounded-2xl p-5 flex items-center justify-between gap-4">
+                        <div>
+                            <p className="font-medium text-ink mb-1">Delete account</p>
+                            <p className="text-sm text-sand-600">Permanently remove your account and everything in it. This cannot be undone.</p>
+                        </div>
+                        <button
+                            onClick={() => { setShowDeleteConfirm(true); setDeleteEmail(''); setDeleteError('') }}
+                            className="text-sm text-rose-600 hover:text-rose-700 font-medium shrink-0"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm">
+                    <div className="w-full max-w-sm bg-surface border border-sand-200 rounded-2xl p-7 shadow-xl">
+                        <h2 className="font-serif text-2xl mb-1">Delete account</h2>
+                        <p className="text-sm text-sand-600 mb-4">Enter your email to confirm. This cannot be undone.</p>
+                        <input
+                            className="field mb-3"
+                            type="email"
+                            placeholder="Your email"
+                            value={deleteEmail}
+                            onChange={(e) => { setDeleteEmail(e.target.value); setDeleteError('') }}
+                        />
+                        {deleteError && <p className="alert-error mb-3">{deleteError}</p>}
+                        <div className="flex gap-2">
+                            <button onClick={handleDeleteAccount} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors">
+                                Yes, delete
+                            </button>
+                            <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

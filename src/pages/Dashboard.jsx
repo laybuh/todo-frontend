@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/DashboardLayout'
 import OnboardingModal from '../components/OnboardingModal'
 import MoodCheckIn from '../components/MoodCheckIn'
-import { getAccessToken, clearAccessToken } from '../authClient'
+import { getAccessToken } from '../authClient'
 
 const ENERGY = {
     low: { label: 'Low', badge: 'bg-sage-100 text-sage-700 border-sage-200' },
@@ -37,9 +37,6 @@ export default function Dashboard() {
     const [intention, setIntention] = useState(null)
     const [needsMood, setNeedsMood] = useState(false)
     const [showOnboarding, setShowOnboarding] = useState(localStorage.getItem('onboarded') === 'false')
-    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-    const [deleteEmail, setDeleteEmail] = useState('')
-    const [deleteError, setDeleteError] = useState('')
 
     const token = getAccessToken()
 
@@ -113,20 +110,6 @@ export default function Dashboard() {
         fetchTodos()
     }
 
-    const handleDeleteAccount = async () => {
-        try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
-                headers: { authorization: token },
-                data: { email: deleteEmail },
-            })
-            clearAccessToken()
-            localStorage.removeItem('lastActive')
-            localStorage.removeItem('onboarded')
-            window.location.href = '/login'
-        } catch (err) {
-            setDeleteError(err.response?.data?.error || 'Something went wrong.')
-        }
-    }
 
     const filtered = todos.filter((t) => {
         if (filter === 'active' && t.completed) return false
@@ -284,37 +267,6 @@ export default function Dashboard() {
                 )}
             </div>
 
-            {/* Account actions */}
-            <div className="mt-12 pt-6 border-t border-sand-200">
-                <button onClick={() => setShowDeleteConfirm(true)} className="text-xs text-sand-500 hover:text-rose-600 transition-colors">
-                    Delete my account
-                </button>
-            </div>
-
-            {showDeleteConfirm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm">
-                    <div className="w-full max-w-sm bg-surface border border-sand-200 rounded-2xl p-7 shadow-xl">
-                        <h2 className="font-serif text-2xl mb-1">Delete account</h2>
-                        <p className="text-sm text-sand-600 mb-4">Enter your email to confirm. This cannot be undone.</p>
-                        <input
-                            className="field mb-3"
-                            type="email"
-                            placeholder="Your email"
-                            value={deleteEmail}
-                            onChange={(e) => { setDeleteEmail(e.target.value); setDeleteError('') }}
-                        />
-                        {deleteError && <p className="alert-error mb-3">{deleteError}</p>}
-                        <div className="flex gap-2">
-                            <button onClick={handleDeleteAccount} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors">
-                                Yes, delete
-                            </button>
-                            <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </DashboardLayout>
     )
 }

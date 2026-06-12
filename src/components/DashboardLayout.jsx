@@ -13,6 +13,7 @@ const NAV = [
     { key: 'mood', label: 'Mood', to: '/mood', ready: true },
     { key: 'affirmations', label: 'Intentions', to: '/affirmations', ready: true },
     { key: 'focus', label: 'Focus', to: '/focus', ready: true },
+    { key: 'calm', label: 'Calm space', to: '/calm', ready: true },
     { key: 'crisis', label: 'Crisis corner', to: '/crisis', ready: true },
 ]
 

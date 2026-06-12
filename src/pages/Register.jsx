@@ -10,7 +10,6 @@ export default function Register() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,11 +27,8 @@ export default function Register() {
         }
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, { username, email, password })
-            setSuccess('Account created! Please check your email to verify your account before signing in. Redirecting to login...')
             setError('')
-            setTimeout(() => {
-                navigate('/login')
-            }, 2000)
+            navigate('/login', { state: { justRegistered: true, email } })
         } catch (err) {
             setError(err.response?.data?.error || 'Something went wrong.')
         }
@@ -45,7 +41,6 @@ export default function Register() {
             footer={<>Already have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/login">Sign in</Link></>}
         >
             {error && <p className="alert-error mb-3">{error}</p>}
-            {success && <p className="alert-success mb-3">{success}</p>}
 
             <form onSubmit={handleRegister} className="flex flex-col gap-3">
                 <input className="field" type="text" placeholder="Display name" value={username} onChange={e => setUsername(e.target.value)} />
