@@ -12,6 +12,7 @@ export default function PublicFooter() {
                 </div>
                 <div className="flex flex-col items-center sm:items-end gap-1.5 text-xs">
                     <Link to="/proof-of-privacy" className="hover:text-ink transition-colors">Proof of privacy</Link>
+                    <a href="https://ko-fi.com/layba" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Buy me a coffee</a>
                     <p>
                         Questions or concerns?{' '}
                         <a href="mailto:hello@layba.dev" className="text-sage-700 hover:text-sage-900 font-medium">hello@layba.dev</a>

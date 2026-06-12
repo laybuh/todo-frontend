@@ -105,6 +105,9 @@ export default function DashboardLayout({ active, children }) {
                     <button onClick={logout} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-sand-700 hover:bg-sand-100 transition-colors text-left">
                         <span>Sign out</span>
                     </button>
+                    <a href="https://ko-fi.com/layba" target="_blank" rel="noopener noreferrer" className="px-3 pt-2 text-xs text-sand-400 hover:text-sand-600 transition-colors">
+                        Buy me a coffee
+                    </a>
                 </div>
             </aside>
 
