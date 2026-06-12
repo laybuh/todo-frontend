@@ -17,7 +17,7 @@ const STEPS = [
     },
     {
         title: 'A leak would just be noise.',
-        body: 'The key that unscrambles your data is never kept next to it in our database. Even if our database were ever hacked, what an attacker walked away with would be scrambled and unreadable. We do not read your entries, and we will never sell or share them.',
+        body: 'The key that unscrambles your data is never kept next to it in our database. Even if our database were ever hacked, what an attacker walked away with would be scrambled and unreadable. We do not read your entries, and we will never sell or share them. As a gentle note, it is always good to use your own judgment with anything truly sensitive.',
     },
     {
         title: 'Start whenever you are ready.',
