@@ -109,7 +109,7 @@ export default function Settings() {
                             <div>
                                 <p className="font-medium text-ink mb-1">Two-step verification</p>
                                 <p className="text-sm text-sand-600">
-                                    Add a layer of security. We’ll email a one-time code each time you sign in.
+                                    On by default. We’ll email a one-time code each time you sign in. You can turn it off if you prefer.
                                 </p>
                             </div>
                             <button
