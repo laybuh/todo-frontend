@@ -70,8 +70,8 @@ export default function Affirmations() {
 
             {active.length === 0 && archived.length === 0 ? (
                 <div className="text-center py-12">
-                    <p className="text-sand-600">You haven’t written any intentions yet.</p>
-                    <p className="text-sand-500 text-sm">Add your first one above. Something kind you’d like to remember.</p>
+                    <p className="text-sand-600">You haven’t written any affirmations yet.</p>
+                    <p className="text-sand-500 text-sm">Add your first one above.</p>
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">
