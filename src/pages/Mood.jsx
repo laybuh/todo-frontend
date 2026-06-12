@@ -15,6 +15,7 @@ export default function Mood() {
     const [selected, setSelected] = useState(null)
     const [checkIn, setCheckIn] = useState(false)
     const [clearing, setClearing] = useState(false)
+    const [deleting, setDeleting] = useState(false)
 
     const token = getAccessToken()
     const auth = { headers: { authorization: token } }
@@ -29,10 +30,16 @@ export default function Mood() {
     }
 
     const clearHistory = async () => {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/moods`, auth)
-        setSelected(null)
-        setClearing(false)
-        load()
+        if (deleting) return
+        setDeleting(true)
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/moods`, auth)
+            setSelected(null)
+            setClearing(false)
+            await load()
+        } finally {
+            setDeleting(false)
+        }
     }
 
     useEffect(() => {
@@ -124,8 +131,14 @@ export default function Mood() {
                         {clearing ? (
                             <div className="inline-flex flex-wrap items-center justify-center gap-2 text-sm">
                                 <span className="text-sand-600">Erase your whole mood history? This cannot be undone.</span>
-                                <button onClick={clearHistory} className="text-rose-700 hover:text-rose-900 font-medium">Yes, erase</button>
-                                <button onClick={() => setClearing(false)} className="text-sand-500 hover:text-ink">Cancel</button>
+                                <button
+                                    onClick={clearHistory}
+                                    disabled={deleting}
+                                    className="bg-rose-500 hover:bg-rose-600 text-white rounded-lg px-3 py-1.5 font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
+                                    {deleting ? 'Erasing…' : 'Yes, erase'}
+                                </button>
+                                <button onClick={() => setClearing(false)} disabled={deleting} className="text-sand-500 hover:text-ink disabled:opacity-60">Cancel</button>
                             </div>
                         ) : (
                             <button onClick={() => setClearing(true)} className="text-xs text-sand-500 hover:text-rose-700 transition-colors">
