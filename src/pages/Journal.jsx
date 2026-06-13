@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import DashboardLayout from '../components/DashboardLayout'
 import { getAccessToken } from '../authClient'
@@ -26,6 +26,28 @@ export default function Journal() {
     const [expandedId, setExpandedId] = useState(null)
     const [editingId, setEditingId] = useState(null)
     const [editContent, setEditContent] = useState('')
+
+    // "Read more" should only appear when an entry is actually clipped. Measure
+    // each entry's collapsed height against its full content after render (and on
+    // resize, since wrapping changes the line count). An expanded entry stays in
+    // the set so its "Show less" button persists.
+    const contentRefs = useRef({})
+    const [overflowing, setOverflowing] = useState(() => new Set())
+
+    useEffect(() => {
+        const measure = () => {
+            const next = new Set()
+            for (const entry of entries) {
+                if (expandedId === entry.id) { next.add(entry.id); continue }
+                const el = contentRefs.current[entry.id]
+                if (el && el.scrollHeight > el.clientHeight + 1) next.add(entry.id)
+            }
+            setOverflowing(next)
+        }
+        measure()
+        window.addEventListener('resize', measure)
+        return () => window.removeEventListener('resize', measure)
+    }, [entries, expandedId])
 
     const token = getAccessToken()
     const auth = { headers: { authorization: token } }
@@ -212,14 +234,17 @@ export default function Journal() {
                                 ) : (
                                     <>
                                         <p
-                                            className={`text-sm text-ink whitespace-pre-wrap leading-relaxed ${expandedId === entry.id ? '' : 'line-clamp-[8]'}`}
+                                            ref={(el) => { contentRefs.current[entry.id] = el }}
+                                            className={`text-sm text-ink whitespace-pre-wrap leading-relaxed ${expandedId === entry.id ? '' : 'max-h-44 overflow-hidden'}`}
                                         >
                                             {entry.content}
                                         </p>
                                         <div className="flex gap-3 mt-3 text-xs">
-                                            <button onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)} className="text-sage-700 hover:text-sage-900">
-                                                {expandedId === entry.id ? 'Show less' : 'Read more'}
-                                            </button>
+                                            {overflowing.has(entry.id) && (
+                                                <button onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)} className="text-sage-700 hover:text-sage-900">
+                                                    {expandedId === entry.id ? 'Show less' : 'Read more'}
+                                                </button>
+                                            )}
                                             <button onClick={() => { setEditingId(entry.id); setEditContent(entry.content) }} className="text-sand-500 hover:text-ink">Edit</button>
                                             <button onClick={() => deleteEntry(entry.id)} className="text-sand-500 hover:text-rose-600">Delete</button>
                                         </div>
