@@ -179,7 +179,7 @@ export default function Focus() {
                 {stage === 'setup' && (
                     <div>
                         <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-3">Focus</p>
-                        <h1 className="font-serif text-4xl mb-6">What are you giving your attention to?</h1>
+                        <h1 className="font-serif text-4xl mb-6">What do you want to focus on?</h1>
 
                         {!loaded ? (
                             <p className="text-sand-500">Loading…</p>
@@ -193,11 +193,10 @@ export default function Focus() {
                                             <button
                                                 key={m}
                                                 onClick={() => setMinutes(m)}
-                                                className={`rounded-full px-4 py-1.5 text-sm border transition-colors ${
-                                                    minutes === m
+                                                className={`rounded-full px-4 py-1.5 text-sm border transition-colors ${minutes === m
                                                         ? 'bg-sage-100 border-sage-400 text-sage-800 font-medium'
                                                         : 'bg-cream border-sand-200 text-sand-600 hover:border-sage-300'
-                                                }`}
+                                                    }`}
                                             >
                                                 {m} min
                                             </button>
