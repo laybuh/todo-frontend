@@ -172,14 +172,14 @@ export default function Dashboard() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 mt-3">
-                    <span className="text-xs text-sand-500 mr-1">Energy:</span>
+                    <span className="text-xs text-sand-700 mr-1">Energy:</span>
                     {Object.entries(ENERGY).map(([lvl, cfg]) => (
                         <button
                             type="button"
                             key={lvl}
                             onClick={() => setEnergy(energy === lvl ? '' : lvl)}
                             className={`text-xs rounded-full px-3 py-1 border transition-colors ${
-                                energy === lvl ? cfg.badge : 'border-sand-200 text-sand-500 hover:border-sand-400'
+                                energy === lvl ? cfg.badge : 'bg-surface border-sand-300 text-sand-700 hover:border-sand-500'
                             }`}
                         >
                             {cfg.label}
@@ -192,12 +192,12 @@ export default function Dashboard() {
                         type="button"
                         onClick={() => setShowCapsule((s) => !s)}
                         className={`text-xs rounded-full px-3 py-1 border transition-colors ${
-                            showCapsule ? 'bg-ink text-cream border-ink' : 'border-sand-200 text-sand-500 hover:border-sand-400'
+                            showCapsule ? 'bg-ink text-cream border-ink' : 'bg-surface border-sand-300 text-sand-700 hover:border-sand-500'
                         }`}
                     >
                         Time capsule
                     </button>
-                    <span className="hidden md:inline text-xs text-sand-400">Save a task so it stays hidden until a date you choose.</span>
+                    <span className="hidden md:inline text-xs text-sand-600">Save a task so it stays hidden until a date you choose.</span>
 
                     {showCapsule && (
                         <input
@@ -218,19 +218,19 @@ export default function Dashboard() {
                         key={f.key}
                         onClick={() => setFilter(f.key)}
                         className={`text-sm rounded-full px-4 py-1.5 border transition-colors ${
-                            filter === f.key ? 'bg-ink text-cream border-ink' : 'bg-transparent text-sand-600 border-sand-200 hover:border-sand-400'
+                            filter === f.key ? 'bg-ink text-cream border-ink' : 'bg-surface text-sand-700 border-sand-300 hover:border-sand-500'
                         }`}
                     >
                         {f.label}
                     </button>
                 ))}
-                <span className="w-px h-5 bg-sand-200 mx-1" />
+                <span className="w-px h-5 bg-sand-300 mx-1" />
                 {['all', 'low', 'medium', 'high'].map((lvl) => (
                     <button
                         key={lvl}
                         onClick={() => setEnergyFilter(lvl)}
                         className={`text-xs rounded-full px-3 py-1.5 border transition-colors ${
-                            energyFilter === lvl ? 'bg-sage-500 text-white border-sage-500' : 'bg-transparent text-sand-500 border-sand-200 hover:border-sand-400'
+                            energyFilter === lvl ? 'bg-sage-500 text-white border-sage-500' : 'bg-surface text-sand-700 border-sand-300 hover:border-sand-500'
                         }`}
                     >
                         {lvl === 'all' ? 'Any energy' : ENERGY[lvl].label}

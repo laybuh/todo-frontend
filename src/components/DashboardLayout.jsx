@@ -8,7 +8,7 @@ const IDLE_MS = 60 * 60 * 1000
 // Sidebar items. `ready: false` ones are upcoming features (shown but disabled)
 // so the full shape of the app is visible as it gets built out.
 const NAV = [
-    { key: 'today', label: 'Today', to: '/dashboard', ready: true },
+    { key: 'today', label: 'Tasks', to: '/dashboard', ready: true },
     { key: 'journal', label: 'Journal', to: '/journal', ready: true },
     { key: 'mood', label: 'Mood', to: '/mood', ready: true },
     { key: 'affirmations', label: 'Affirmations', to: '/affirmations', ready: true },
