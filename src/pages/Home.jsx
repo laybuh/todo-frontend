@@ -69,6 +69,19 @@ export default function Home() {
                         <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-sage-400 animate-pulse" />
                         AES-256 encrypted
                     </motion.p>
+
+                    {/* Mobile: tuck the support link under the badge instead of
+                        floating it in the corner where it covers content. */}
+                    <div className="sm:hidden mt-3">
+                        <a
+                            href="https://ko-fi.com/layba"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 rounded px-2 py-1 hover:bg-mauve/30 transition-colors"
+                        >
+                            Buy me a coffee
+                        </a>
+                    </div>
                 </div>
             </header>
 
@@ -112,12 +125,13 @@ export default function Home() {
 
             <PublicFooter />
 
-            {/* Subtle floating support link */}
+            {/* Subtle floating support link — desktop only; on mobile it moves
+                up under the AES-256 badge so it doesn't cover content. */}
             <a
                 href="https://ko-fi.com/layba"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fixed bottom-4 right-4 z-40 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 backdrop-blur rounded px-2 py-1 shadow-sm hover:bg-mauve/30 transition-colors"
+                className="hidden sm:block fixed bottom-4 right-4 z-40 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 backdrop-blur rounded px-2 py-1 shadow-sm hover:bg-mauve/30 transition-colors"
             >
                 Buy me a coffee
             </a>
