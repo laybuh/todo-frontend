@@ -123,10 +123,10 @@ export default function Focus() {
         <button
             onClick={() => navigate('/dashboard')}
             aria-label="Exit focus"
-            className="absolute top-4 right-4 sm:top-5 sm:right-6 z-50 inline-flex items-center gap-1.5 rounded-full border border-sand-300 bg-surface/95 px-4 py-2 text-sm font-medium text-ink shadow-sm hover:bg-sand-100 hover:border-sand-400 transition-colors"
+            className="absolute top-4 right-4 sm:top-5 sm:right-6 z-50 inline-flex items-center gap-1.5 rounded-full bg-sage-500 hover:bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors"
         >
             Exit
-            <span aria-hidden className="text-sand-500">✕</span>
+            <span aria-hidden>✕</span>
         </button>
     )
 
