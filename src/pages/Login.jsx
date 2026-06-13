@@ -24,9 +24,39 @@ export default function Login() {
 
     const [searchParams] = useSearchParams()
     const verified = searchParams.get('verified')
+    const verifyError = searchParams.get('verifyError')
+
+    // Whether to surface the "resend verification" button: either the backend
+    // told us this account is unverified, or the verify link came back bad.
+    const [unverified, setUnverified] = useState(false)
+    const [resendMsg, setResendMsg] = useState('')
+
+    const verifyErrorMessage = {
+        expired: 'Your verification link expired. Enter your email below and we’ll send a fresh one.',
+        invalid: 'That verification link is invalid or was already used. If you just signed up, try signing in below.',
+        server: 'Something went wrong verifying your email. Please try again in a moment.',
+    }[verifyError]
+
+    const showResend = unverified || verifyError === 'expired' || verifyError === 'invalid'
+
+    const handleResend = async () => {
+        setResendMsg('')
+        if (!email) {
+            setError('Enter your email above first, then tap resend.')
+            return
+        }
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/auth/resend-verification`, { email })
+            setResendMsg('If that account still needs verifying, a new link is on its way. Check your inbox.')
+            setUnverified(false)
+        } catch {
+            setResendMsg('Could not send right now. Please try again shortly.')
+        }
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        setResendMsg('')
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password })
             if (res.data.mfaRequired) {
@@ -38,6 +68,7 @@ export default function Login() {
             navigate('/dashboard')
         } catch (err) {
             setError(err.response?.data?.error || 'Invalid email or password.')
+            setUnverified(!!err.response?.data?.unverified)
         }
     }
 
@@ -67,13 +98,21 @@ export default function Login() {
             )}
 
             {verified && <p className="alert-success mb-3">Email verified! You can now sign in.</p>}
+            {verifyErrorMessage && <p className="alert-error mb-3">{verifyErrorMessage}</p>}
             {error && <p className="alert-error mb-3">{error}</p>}
+            {resendMsg && <p className="alert-success mb-3">{resendMsg}</p>}
 
             <form onSubmit={handleLogin} className="flex flex-col gap-3">
                 <input className="field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
                 <input className="field" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Sign in</button>
             </form>
+
+            {showResend && (
+                <button type="button" onClick={handleResend} className="btn-soft w-full mt-3">
+                    Resend verification email
+                </button>
+            )}
 
             <p className="mt-4 text-center text-xs text-sand-500">
                 <Link className="hover:text-ink transition-colors" to="/forgot-password">Forgot your password?</Link>
