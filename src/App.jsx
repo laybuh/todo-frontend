@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ScrollToTop from './components/ScrollToTop'
-import { bootstrapAuth, getAccessToken } from './authClient'
+import { bootstrapAuth, hasValidSession } from './authClient'
 
 // Eager: the public landing + auth (first paint).
 import Home from './pages/Home'
@@ -28,15 +28,15 @@ function Loading() {
   return <div className="min-h-screen bg-cream" />
 }
 
-// Gate for routes that need a signed-in user. If an access token is already in
-// memory (just signed in), render immediately. On a fresh page load the token is
-// gone, so try to restore the session from the httpOnly refresh cookie before
-// deciding whether to show the page or bounce to /login.
+// Gate for routes that need a signed-in user. If a still-valid access token is in
+// memory (just signed in), render immediately. Otherwise — fresh page load, or a
+// token that's expired in memory — try to restore the session from the httpOnly
+// refresh cookie before deciding whether to show the page or bounce to /login.
 function RequireAuth({ children }) {
-  const [status, setStatus] = useState(getAccessToken() ? 'authed' : 'pending')
+  const [status, setStatus] = useState(hasValidSession() ? 'authed' : 'pending')
 
   useEffect(() => {
-    if (getAccessToken()) return
+    if (hasValidSession()) return
     let active = true
     bootstrapAuth().then((ok) => {
       if (active) setStatus(ok ? 'authed' : 'guest')

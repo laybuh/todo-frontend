@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getAccessToken, bootstrapAuth } from '../authClient'
+import { hasValidSession, bootstrapAuth } from '../authClient'
 
 // Top nav for public (logged-out) pages: home, proof of privacy.
 // If the visitor still has a live session, swap Log in / Sign up for a single
 // Dashboard link. On a fresh page load the access token isn't in memory yet, so
 // we try to restore it from the httpOnly refresh cookie before deciding.
 export default function PublicNav() {
-    const [authed, setAuthed] = useState(!!getAccessToken())
+    const [authed, setAuthed] = useState(hasValidSession())
 
     useEffect(() => {
         let active = true
