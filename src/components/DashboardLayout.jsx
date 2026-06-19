@@ -14,7 +14,7 @@ const NAV = [
     { key: 'affirmations', label: 'Affirmations', to: '/affirmations', ready: true },
     { key: 'focus', label: 'Focus', to: '/focus', ready: true },
     { key: 'calm', label: 'Calm space', to: '/calm', ready: true },
-    { key: 'crisis', label: 'Crisis corner', to: '/crisis', ready: true },
+    { key: 'crisis', label: 'Crisis support', to: '/crisis', ready: true },
 ]
 
 export default function DashboardLayout({ active, children }) {

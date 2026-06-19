@@ -130,7 +130,7 @@ export default function CalmSpace() {
 
             <p className="text-sm text-sand-500 mt-8">
                 If things feel like too much right now, the{' '}
-                <Link to="/crisis" className="text-sage-700 hover:text-sage-900 font-medium">crisis corner</Link>
+                <Link to="/crisis" className="text-sage-700 hover:text-sage-900 font-medium">crisis support</Link>
                 {' '}has real people you can reach any time.
             </p>
         </DashboardLayout>
