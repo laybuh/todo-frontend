@@ -14,7 +14,10 @@ export default function VerifyOTP() {
     const [digits, setDigits] = useState(Array(LENGTH).fill(''))
     const [error, setError] = useState('')
     const [verifying, setVerifying] = useState(false)
-    const [cooldown, setCooldown] = useState(0)
+    // Login already emailed a code, and the server won't resend within 60s of
+    // it. Start the countdown so the button shows "Resend in 60s" instead of
+    // letting the user click into a confusing "please wait" error.
+    const [cooldown, setCooldown] = useState(60)
     const [resendMsg, setResendMsg] = useState('')
     const inputs = useRef([])
 
