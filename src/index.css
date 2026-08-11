@@ -57,6 +57,30 @@
 }
 
 @layer base {
+  /* Faded moon scene behind the hero. The pixel-art moon already sits in the
+     palette (warm moon, dusk-purple sky), so its own colors are kept. A radial
+     mask isolates the moon and its halo so the dark sky never drops a heavy
+     rectangle on the light theme — it just floats a soft moon behind the text.
+     Credited in the footer. Knob: --hero-scene-opacity. */
+  .hero-scene {
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: var(--hero-scene-opacity, 0.5);
+    -webkit-mask-image: radial-gradient(34% 44% at 20% 28%, #000 0%, #000 34%, transparent 60%);
+    mask-image: radial-gradient(34% 44% at 20% 28%, #000 0%, #000 34%, transparent 60%);
+  }
+  .hero-scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    /* nudge the moon into the upper-left corner, clear of the centered headline */
+    transform: translateX(-28%) translateY(-4%);
+  }
+
   body {
     background-color: var(--color-cream);
     /* subtle paper grain for a cozy, analog feel */

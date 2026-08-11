@@ -24,8 +24,12 @@ export default function Home() {
 
             {/* Hero */}
             <header className="relative overflow-hidden">
-                {/* soft warm wash — color only, no graphics */}
-                <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-cream via-cream to-rose-50/60" />
+                {/* soft warm wash */}
+                <div aria-hidden className="pointer-events-none absolute inset-0 -z-20 bg-gradient-to-b from-cream via-cream to-rose-50/60" />
+                {/* faded moon scene — natural colors, radial-masked in CSS, art credited in footer */}
+                <div aria-hidden className="hero-scene">
+                    <img src="/hero-scene.png" alt="" />
+                </div>
 
                 <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-20 text-center">
                     <motion.p

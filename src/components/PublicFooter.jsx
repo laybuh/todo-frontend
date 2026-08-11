@@ -9,6 +9,17 @@ export default function PublicFooter() {
                 <div className="text-center sm:text-left">
                     <p className="font-serif text-lg text-ink mb-1">lunev</p>
                     <p className="text-xs">© {year} lunev. All rights reserved.</p>
+                    <p className="text-[11px] text-sand-400 mt-1">
+                        Background art by{' '}
+                        <a
+                            href="https://craftpix.net/freebies/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline underline-offset-2 hover:text-sand-600 transition-colors"
+                        >
+                            CraftPix
+                        </a>
+                    </p>
                 </div>
                 <div className="flex flex-col items-center sm:items-end gap-1.5 text-xs">
                     <Link to="/proof-of-privacy" className="hover:text-ink transition-colors">Proof of privacy</Link>
