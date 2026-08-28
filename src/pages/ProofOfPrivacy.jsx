@@ -159,16 +159,16 @@ export default function ProofOfPrivacy() {
             <section className="max-w-3xl mx-auto px-6 md:px-10 mt-14 mb-8 grid gap-6">
                 {[
                     {
-                        h: 'The key is not stored next to your words',
+                        h: 'The key is not stored next to your words.',
                         p: 'The encryption key is a server secret, never written into the database beside your entries. If someone copied the whole database, they would have a pile of locked boxes and nothing to open them with.',
                     },
                     {
-                        h: 'A leak would just be noise',
+                        h: 'A leak would just be noise.',
                         p: 'That scrambled output above is exactly what an attacker would walk away with. Without the key, there is no way to turn it back into anything you wrote.',
                     },
                     {
-                        h: 'The same thing twice looks different both times',
-                        p: 'Every entry gets a fresh random value before it is encrypted, so two identical notes never produce the same output. Nobody can even tell which entries match.',
+                        h: 'The same thing twice looks different both times.',
+                        p: 'Each entry receives a fresh random value before being encrypted, so two identical notes never produce the same output. Nobody can even tell which entries match.',
                     },
                 ].map((item) => (
                     <div key={item.h} className="border-l-2 border-sage-300 pl-5">
@@ -182,8 +182,8 @@ export default function ProofOfPrivacy() {
                     <p className="text-sand-700 leading-relaxed text-sm">
                         Your entries are encrypted before they are saved, so if our database ever
                         leaked, all anyone would find is scrambled text. To be transparent, the key
-                        that unscrambles them lives on our own servers, never handed off to anyone
-                        else. We make a commitment never to access or read your entries, and we will
+                        that unscrambles them lives on our own servers and is never handed off to anyone
+                        else. We commit never to access or read your entries, and we will
                         never sell or share them. As with anything you put online, it is still wise to use
                         your own judgment with the most sensitive details. And if you want to write
                         something that never reaches our servers at all, the vent box in{' '}

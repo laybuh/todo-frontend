@@ -10,9 +10,9 @@ export default function PublicFooter() {
                     <p className="font-serif text-lg text-ink mb-1">lunev</p>
                     <p className="text-xs">© {year} lunev. All rights reserved.</p>
                     <p className="text-[11px] text-sand-400 mt-1">
-                        Background art by{' '}
+                        Moon background by{' '}
                         <a
-                            href="https://craftpix.net/freebies/"
+                            href="https://craftpix.net/freebies/free-moon-pixel-game-backgrounds/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="underline underline-offset-2 hover:text-sand-600 transition-colors"

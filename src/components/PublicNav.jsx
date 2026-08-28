@@ -22,29 +22,20 @@ export default function PublicNav() {
             <Link to="/" className="text-2xl font-serif tracking-wide text-ink">
                 lunev
             </Link>
-            <div className="flex items-center gap-3 md:gap-5 text-sm">
-                <Link
-                    to="/proof-of-privacy"
-                    className="hidden sm:inline text-sand-600 hover:text-ink transition-colors"
-                >
+            <div className="nav-capsule">
+                <Link to="/proof-of-privacy" className="nav-ghost hidden sm:inline-flex">
                     Proof of privacy
                 </Link>
                 {authed ? (
-                    <Link
-                        to="/dashboard"
-                        className="bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-4 py-2 font-medium transition-colors"
-                    >
+                    <Link to="/dashboard" className="nav-pill">
                         Dashboard
                     </Link>
                 ) : (
                     <>
-                        <Link to="/login" className="text-sand-700 hover:text-ink transition-colors">
+                        <Link to="/login" className="nav-ghost">
                             Log in
                         </Link>
-                        <Link
-                            to="/register"
-                            className="bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-4 py-2 font-medium transition-colors"
-                        >
+                        <Link to="/register" className="nav-pill">
                             Sign up
                         </Link>
                     </>

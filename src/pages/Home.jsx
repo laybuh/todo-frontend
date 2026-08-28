@@ -30,6 +30,9 @@ export default function Home() {
                 <div aria-hidden className="hero-scene">
                     <img src="/hero-scene.png" alt="" />
                 </div>
+                {/* dreamy colour auras */}
+                <div aria-hidden className="pointer-events-none absolute -z-10 -top-24 right-[-3rem] w-[26rem] h-[26rem] rounded-full bg-mauve/20 blur-[90px]" />
+                <div aria-hidden className="pointer-events-none absolute -z-10 top-16 left-[34%] w-[22rem] h-[22rem] rounded-full bg-peach/20 blur-[90px]" />
 
                 <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-20 text-center">
                     <motion.p
@@ -41,27 +44,23 @@ export default function Home() {
                     </motion.p>
                     <motion.h1
                         initial="hidden" animate="show" custom={1} variants={fade}
-                        className="font-serif text-4xl md:text-6xl leading-tight max-w-3xl mx-auto"
+                        className="font-serif font-normal text-5xl md:text-7xl leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto"
                     >
                         <span className="block">Get things done.</span>
-                        <span className="block bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent">Take care of your mind.</span>
+                        <span className="block italic pb-2 bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
                     </motion.h1>
                     <motion.p
                         initial="hidden" animate="show" custom={2} variants={fade}
                         className="mt-6 text-sm text-sand-700 max-w-md mx-auto leading-relaxed"
                     >
-                        We bring your tasks, journal, moods, and affirmations into one place.
-                        Built for people who want to feel better mentally and focus on tasks.
-                        Everything you write is encrypted before it is saved.
+                        Some days are about getting things done. Some days are about getting through.
+                        lunev holds both. Everything you write here is encrypted before it is saved.
                     </motion.p>
                     <motion.div
                         initial="hidden" animate="show" custom={3} variants={fade}
                         className="mt-9 flex flex-col sm:flex-row gap-3 justify-center"
                     >
-                        <Link
-                            to="/register"
-                            className="bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-7 py-3.5 font-medium transition-colors shadow-sm"
-                        >
+                        <Link to="/register" className="btn-glow-lg">
                             Create your space
                         </Link>
                     </motion.div>
@@ -118,10 +117,7 @@ export default function Home() {
                     <p className="text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
                         Your journal entries, mood notes, and tasks are encrypted before they are saved. The key is never stored next to them in the database. If our database ever leaked, all anyone would find is scrambled text. Don't take our word for it. See it for yourself.
                     </p>
-                    <Link
-                        to="/proof-of-privacy"
-                        className="inline-block mt-8 bg-ink hover:bg-sand-800 text-cream rounded-xl px-7 py-3.5 font-medium transition-colors shadow-sm"
-                    >
+                    <Link to="/proof-of-privacy" className="btn-pillow-ink mt-8">
                         Watch your words get encrypted.
                     </Link>
                 </div>

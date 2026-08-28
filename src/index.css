@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 @import "tailwindcss";
 
 /* ── lunev design tokens — warm cozy light theme ──────────────────────── */
 @theme {
-  --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  /* headings use a sleek geometric display face. `font-serif` is kept as the
-     heading utility name across the app; it now maps to Outfit. */
-  --font-serif: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
+  /* headings use a soft, high-contrast display serif for a dreamy, ethereal
+     feel. `font-serif` is kept as the heading utility name across the app. */
+  --font-serif: "Playfair Display", Georgia, ui-serif, serif;
 
   /* surfaces */
   --color-cream: #f7f2ea;      /* page background */
@@ -104,6 +104,51 @@
   }
   .btn-soft {
     @apply inline-flex items-center justify-center bg-surface border border-sand-200 hover:border-sand-300 text-ink rounded-xl px-5 py-3 font-medium transition-colors cursor-pointer;
+  }
+
+  /* soft segmented nav capsule: quiet serif links + a gradient pill, all held
+     in one calm rounded piece. serif nav text matches the display headings. */
+  .nav-capsule {
+    @apply inline-flex items-center gap-1 bg-surface border border-sand-200 rounded-full p-1;
+    box-shadow: 0 1px 2px rgba(63, 58, 52, 0.05), 0 10px 24px -16px rgba(63, 58, 52, 0.35);
+  }
+  .nav-ghost {
+    @apply font-serif text-[15px] font-medium text-sand-700 rounded-full px-4 py-1.5 transition-colors;
+  }
+  .nav-ghost:hover { @apply bg-sage-50 text-ink; }
+  .nav-pill {
+    @apply inline-flex items-center font-serif text-[15px] font-medium text-white rounded-full px-[18px] py-1.5 transition-shadow;
+    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 16px -6px rgba(154, 138, 168, 0.7);
+  }
+  .nav-pill:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 20px -6px rgba(154, 138, 168, 0.85);
+  }
+
+  /* dreamy gradient-glow pill: a soft sage-to-dusk wash with a coloured halo.
+     ethereal, no hard edges. */
+  .btn-glow {
+    @apply inline-flex items-center justify-center gap-1 text-[13px] font-medium text-white rounded-full px-[22px] py-2.5 tracking-[0.02em] transition-shadow;
+    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 24px -8px rgba(154, 138, 168, 0.75);
+  }
+  .btn-glow:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px -8px rgba(154, 138, 168, 0.9);
+  }
+  /* larger sibling for primary page CTAs */
+  .btn-glow-lg {
+    @apply inline-flex items-center justify-center gap-1.5 font-medium text-white rounded-full px-8 py-3.5 tracking-[0.01em] transition-shadow cursor-pointer;
+    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 34px -10px rgba(154, 138, 168, 0.8);
+  }
+  .btn-glow-lg:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 16px 40px -10px rgba(154, 138, 168, 0.95);
+  }
+
+  /* dark cushion variant for use on tinted bands */
+  .btn-pillow-ink {
+    @apply inline-flex items-center justify-center gap-1.5 font-medium text-cream bg-ink hover:bg-sand-800 rounded-full px-7 py-3.5 transition-colors cursor-pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 22px -6px rgba(63, 58, 52, 0.4);
   }
 
   .alert-error {
