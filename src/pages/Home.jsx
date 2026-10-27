@@ -40,7 +40,7 @@ export default function Home() {
                         className="font-serif font-normal text-[36px] md:text-[52px] leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto text-balance"
                     >
                         <span className="block">Get things done.</span>
-                        <span className="block italic pb-2 bg-gradient-to-r from-sage-700 via-dusk-deep to-mauve-deep bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
+                        <span className="block pb-2 bg-gradient-to-r from-sage-700 via-dusk-deep to-mauve-deep bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
                     </motion.h1>
                     <motion.p
                         initial="hidden" animate="show" custom={2} variants={fade}
