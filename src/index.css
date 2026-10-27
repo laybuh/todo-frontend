@@ -20,7 +20,7 @@
   --color-sage-300: #b0c09d;
   --color-sage-400: #97a981;
   --color-sage-500: #7f936a;
-  --color-sage-600: #687a55;
+  --color-sage-600: #5f714d;
   --color-sage-700: #526044;
   --color-sage-800: #424d38;
   --color-sage-900: #383f31;
@@ -44,7 +44,7 @@
   --color-sand-300: #d6c8b2;
   --color-sand-400: #b8a98f;
   --color-sand-500: #9a8b72;
-  --color-sand-600: #7c6f5a;
+  --color-sand-600: #716450;
   --color-sand-700: #5f5546;
   --color-sand-800: #463e33;
   --color-sand-900: #2f2a22;
@@ -54,6 +54,8 @@
   --color-apricot: #e7a878;
   --color-mauve: #b8a1c4;
   --color-dusk: #9a8aa8;
+  --color-dusk-deep: #7a6a8c;
+  --color-mauve-deep: #8c759c;
 }
 
 @layer base {
@@ -96,11 +98,11 @@
   .field {
     @apply w-full bg-surface border border-sand-300 rounded-xl px-4 py-3 text-sm text-ink outline-none transition-colors;
   }
-  .field::placeholder { @apply text-sand-400; }
+  .field::placeholder { @apply text-sand-600; }
   .field:focus { @apply border-sage-400 bg-white; }
 
   .btn-primary {
-    @apply w-full inline-flex items-center justify-center bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-5 py-3 font-medium transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed;
+    @apply w-full inline-flex items-center justify-center bg-sage-600 hover:bg-sage-700 text-white rounded-xl px-5 py-3 font-medium transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed;
   }
   .btn-soft {
     @apply inline-flex items-center justify-center bg-surface border border-sand-200 hover:border-sand-300 text-ink rounded-xl px-5 py-3 font-medium transition-colors cursor-pointer;
@@ -118,7 +120,7 @@
   .nav-ghost:hover { @apply bg-sage-50 text-ink; }
   .nav-pill {
     @apply inline-flex items-center font-serif text-[15px] font-medium text-white rounded-full px-[18px] py-1.5 transition-shadow;
-    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    background-image: linear-gradient(110deg, var(--color-sage-600), var(--color-dusk-deep));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 16px -6px rgba(154, 138, 168, 0.7);
   }
   .nav-pill:hover {
@@ -129,7 +131,7 @@
      ethereal, no hard edges. */
   .btn-glow {
     @apply inline-flex items-center justify-center gap-1 text-[13px] font-medium text-white rounded-full px-[22px] py-2.5 tracking-[0.02em] transition-shadow;
-    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    background-image: linear-gradient(110deg, var(--color-sage-600), var(--color-dusk-deep));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 24px -8px rgba(154, 138, 168, 0.75);
   }
   .btn-glow:hover {
@@ -138,7 +140,7 @@
   /* larger sibling for primary page CTAs */
   .btn-glow-lg {
     @apply inline-flex items-center justify-center gap-1.5 font-medium text-white rounded-full px-8 py-3.5 tracking-[0.01em] transition-shadow cursor-pointer;
-    background-image: linear-gradient(110deg, var(--color-sage-500), var(--color-dusk));
+    background-image: linear-gradient(110deg, var(--color-sage-600), var(--color-dusk-deep));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 34px -10px rgba(154, 138, 168, 0.8);
   }
   .btn-glow-lg:hover {

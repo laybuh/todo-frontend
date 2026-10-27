@@ -69,9 +69,9 @@ export default function DashboardLayout({ active, children }) {
                 const base = 'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors'
                 if (!item.ready) {
                     return (
-                        <div key={item.key} className={`${base} text-sand-400 cursor-default select-none`} title="Coming soon">
+                        <div key={item.key} className={`${base} text-sand-600 cursor-default select-none`} title="Coming soon">
                             <span>{item.label}</span>
-                            <span className="ml-auto text-[10px] uppercase tracking-wide text-sand-400 border border-sand-200 rounded-full px-1.5 py-0.5">soon</span>
+                            <span className="ml-auto text-[10px] uppercase tracking-wide text-sand-600 border border-sand-200 rounded-full px-1.5 py-0.5">soon</span>
                         </div>
                     )
                 }
@@ -94,7 +94,7 @@ export default function DashboardLayout({ active, children }) {
             {/* Desktop sidebar */}
             <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-sand-200 bg-gradient-to-b from-surface via-surface to-cream p-5">
                 <Link to="/" className="px-2 mb-6">
-                    <p className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk bg-clip-text text-transparent">lunev</p>
+                    <p className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk-deep bg-clip-text text-transparent">lunev</p>
                 </Link>
                 <nav className="flex flex-col gap-1">
                     <NavItems />
@@ -134,8 +134,8 @@ export default function DashboardLayout({ active, children }) {
                         <div className="absolute inset-0 bg-ink/40" onClick={() => setMenuOpen(false)} />
                         <aside className="absolute left-0 top-0 h-full w-64 max-w-[80%] bg-surface border-r border-sand-200 p-5 flex flex-col shadow-xl">
                             <div className="flex items-center justify-between mb-6">
-                                <Link to="/" onClick={() => setMenuOpen(false)} className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk bg-clip-text text-transparent">lunev</Link>
-                                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-sand-500 hover:text-ink p-1">
+                                <Link to="/" onClick={() => setMenuOpen(false)} className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk-deep bg-clip-text text-transparent">lunev</Link>
+                                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-sand-600 hover:text-ink p-1">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                                         <path d="M6 6l12 12M18 6L6 18" />
                                     </svg>

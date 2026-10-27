@@ -95,11 +95,11 @@ export default function Settings() {
             <p className="text-sand-600 mb-7">Manage your account and security.</p>
 
             {!me ? (
-                <p className="text-sand-400 py-8">Loading…</p>
+                <p className="text-sand-600 py-8">Loading…</p>
             ) : (
                 <div className="flex flex-col gap-4">
                     <div className="bg-surface border border-sand-200 rounded-2xl p-5">
-                        <p className="text-xs uppercase tracking-wide text-sand-500 mb-1">Account</p>
+                        <p className="text-xs uppercase tracking-wide text-sand-600 mb-1">Account</p>
                         <p className="text-ink">{me.username}</p>
                         <p className="text-sm text-sand-600">{me.email}</p>
                     </div>
@@ -117,8 +117,9 @@ export default function Settings() {
                                 onClick={onToggleMfa}
                                 disabled={saving || confirmingDisable}
                                 role="switch"
+                                aria-label="Two-step verification"
                                 aria-checked={me.mfa_enabled}
-                                className={`relative w-12 h-7 rounded-full transition-colors shrink-0 ${me.mfa_enabled ? 'bg-sage-500' : 'bg-sand-300'} disabled:opacity-60`}
+                                className={`relative w-12 h-7 rounded-full transition-colors shrink-0 ${me.mfa_enabled ? 'bg-sage-600' : 'bg-sand-500'} disabled:opacity-60`}
                             >
                                 <span className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full transition-transform ${me.mfa_enabled ? 'translate-x-5' : ''}`} />
                             </button>
@@ -134,6 +135,7 @@ export default function Settings() {
                                     <input
                                         className="field flex-1"
                                         type="password"
+                                        aria-label="Current password"
                                         placeholder="Current password"
                                         value={disablePassword}
                                         onChange={(e) => setDisablePassword(e.target.value)}
@@ -176,7 +178,7 @@ export default function Settings() {
                         <p className="font-medium text-ink mb-1">Contact</p>
                         <p className="text-sm text-sand-600">
                             Questions or concerns? Email{' '}
-                            <a href="mailto:hello@layba.dev" className="text-sage-700 hover:text-sage-900">hello@layba.dev</a>.
+                            <a href="mailto:hello@layba.dev" className="text-sage-700 hover:text-sage-900 underline underline-offset-2">hello@layba.dev</a>.
                         </p>
                     </div>
 
@@ -204,6 +206,7 @@ export default function Settings() {
                         <input
                             className="field mb-3"
                             type="email"
+                            aria-label="Your email"
                             placeholder="Your email"
                             value={deleteEmail}
                             onChange={(e) => { setDeleteEmail(e.target.value); setDeleteError('') }}
@@ -211,13 +214,14 @@ export default function Settings() {
                         <input
                             className="field mb-3"
                             type="password"
+                            aria-label="Your password"
                             placeholder="Your password"
                             value={deletePassword}
                             onChange={(e) => { setDeletePassword(e.target.value); setDeleteError('') }}
                         />
                         {deleteError && <p className="alert-error mb-3">{deleteError}</p>}
                         <div className="flex gap-2">
-                            <button onClick={handleDeleteAccount} disabled={!deleteEmail || !deletePassword} className="flex-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+                            <button onClick={handleDeleteAccount} disabled={!deleteEmail || !deletePassword} className="flex-1 bg-rose-600 hover:bg-rose-700 text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
                                 Yes, delete
                             </button>
                             <button onClick={() => { setShowDeleteConfirm(false); setDeleteEmail(''); setDeletePassword(''); setDeleteError('') }} className="btn-soft px-4 py-2.5 text-sm">

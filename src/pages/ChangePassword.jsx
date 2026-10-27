@@ -50,9 +50,9 @@ export default function ChangePassword() {
             {success && <p className="alert-success mb-3">{success}</p>}
 
             <form onSubmit={handleChange} className="flex flex-col gap-3">
-                <input className="field" type="password" placeholder="Current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
-                <input className="field" type="password" placeholder="New password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-                <input className="field" type="password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="Current password" placeholder="Current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="New password" placeholder="New password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="Confirm new password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Update password</button>
             </form>
         </AuthLayout>

@@ -150,7 +150,7 @@ export default function Dashboard() {
 
             {intention ? (
                 <div className="bg-sage-50 border border-sage-100 rounded-2xl p-5 mb-7">
-                    <p className="text-xs uppercase tracking-wide text-sage-600 mb-1">Today’s affirmation</p>
+                    <p className="text-xs uppercase tracking-wide text-sage-700 mb-1">Today’s affirmation</p>
                     <p className="font-serif text-xl text-ink">“{intention.text}”</p>
                 </div>
             ) : (
@@ -164,6 +164,7 @@ export default function Dashboard() {
                     <input
                         className="field"
                         type="text"
+                        aria-label="New task"
                         placeholder="Add a task…"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -202,6 +203,7 @@ export default function Dashboard() {
                     {showCapsule && (
                         <input
                             type="datetime-local"
+                            aria-label="Unlock date and time"
                             value={unlockDate}
                             min={minDateTime}
                             onChange={(e) => setUnlockDate(e.target.value)}
@@ -230,7 +232,7 @@ export default function Dashboard() {
                         key={lvl}
                         onClick={() => setEnergyFilter(lvl)}
                         className={`text-xs rounded-full px-3 py-1.5 border transition-colors ${
-                            energyFilter === lvl ? 'bg-sage-500 text-white border-sage-500' : 'bg-surface text-sand-700 border-sand-300 hover:border-sand-500'
+                            energyFilter === lvl ? 'bg-sage-600 text-white border-sage-600' : 'bg-surface text-sand-700 border-sand-300 hover:border-sand-500'
                         }`}
                     >
                         {lvl === 'all' ? 'Any energy' : ENERGY[lvl].label}
@@ -241,28 +243,29 @@ export default function Dashboard() {
             {/* List */}
             <div className="flex flex-col gap-2">
                 {filtered.length === 0 && (
-                    <p className="text-center text-sand-400 py-12">Nothing here yet. Add your first task above.</p>
+                    <p className="text-center text-sand-600 py-12">Nothing here yet. Add your first task above.</p>
                 )}
                 {filtered.map((todo) =>
                     todo.locked ? (
                         <div key={todo.id} className="flex items-center gap-3 bg-sand-100/60 border border-dashed border-sand-300 rounded-xl px-4 py-3">
                             <span className="flex-1 text-sm text-sand-600">
                                 Sealed task. Unlocks in {formatCountdown(new Date(todo.unlock_date).getTime(), now)}
-                                <span className="block text-xs text-sand-400">
+                                <span className="block text-xs text-sand-600">
                                     {new Date(todo.unlock_date).toLocaleString()}
                                 </span>
                             </span>
-                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-400 hover:text-rose-500 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
+                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-600 hover:text-rose-700 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
                         </div>
                     ) : (
                         <div key={todo.id} className="flex items-center gap-3 bg-surface border border-sand-200 rounded-xl px-4 py-3 hover:border-sand-300 transition-colors">
                             <input
                                 type="checkbox"
                                 checked={!!todo.completed}
+                                aria-label={`Done: ${todo.title}`}
                                 onChange={() => toggleComplete(todo.id, todo.completed)}
                                 className="w-4 h-4 accent-sage-500 cursor-pointer shrink-0"
                             />
-                            <span className={`flex-1 text-sm ${todo.completed ? 'line-through text-sand-400' : 'text-ink'}`}>
+                            <span className={`flex-1 text-sm ${todo.completed ? 'line-through text-sand-600' : 'text-ink'}`}>
                                 {todo.title}
                             </span>
                             {todo.energy && ENERGY[todo.energy] && (
@@ -270,7 +273,7 @@ export default function Dashboard() {
                                     {ENERGY[todo.energy].label}
                                 </span>
                             )}
-                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-400 hover:text-rose-500 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
+                            <button onClick={() => deleteTodo(todo.id)} className="text-sand-600 hover:text-rose-700 transition-colors text-sm shrink-0" aria-label="Delete task">✕</button>
                         </div>
                     )
                 )}

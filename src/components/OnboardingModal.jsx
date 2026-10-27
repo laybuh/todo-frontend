@@ -84,7 +84,7 @@ export default function OnboardingModal({ onComplete }) {
                 <div className="flex items-center justify-between">
                     <button
                         onClick={finish}
-                        className="text-sm text-sand-500 hover:text-ink transition-colors"
+                        className="text-sm text-sand-600 hover:text-ink transition-colors"
                     >
                         Skip
                     </button>

@@ -103,8 +103,8 @@ export default function Login() {
             {resendMsg && <p className="alert-success mb-3">{resendMsg}</p>}
 
             <form onSubmit={handleLogin} className="flex flex-col gap-3">
-                <input className="field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-                <input className="field" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                <input className="field" type="email" aria-label="Email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input className="field" type="password" aria-label="Password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Sign in</button>
             </form>
 
@@ -114,7 +114,7 @@ export default function Login() {
                 </button>
             )}
 
-            <p className="mt-4 text-center text-xs text-sand-500">
+            <p className="mt-4 text-center text-xs text-sand-600">
                 <Link className="hover:text-ink transition-colors" to="/forgot-password">Forgot your password?</Link>
             </p>
         </AuthLayout>

@@ -80,6 +80,7 @@ export default function MoodCheckIn({ initial, onComplete, onClose }) {
 
                         <textarea
                             className="field min-h-[80px] resize-y mb-4"
+                            aria-label="Note, optional"
                             placeholder="Anything you want to add? Optional."
                             value={note}
                             onChange={(e) => setNote(e.target.value)}

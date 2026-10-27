@@ -58,6 +58,7 @@ export default function Affirmations() {
                 <div className="flex gap-2">
                     <input
                         className="field"
+                        aria-label="New affirmation"
                         placeholder="Write an affirmation… e.g. “I am gorgeous.”"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
@@ -71,26 +72,26 @@ export default function Affirmations() {
             {active.length === 0 && archived.length === 0 ? (
                 <div className="text-center py-12">
                     <p className="text-sand-600">You haven’t written any affirmations yet.</p>
-                    <p className="text-sand-500 text-sm">Add your first one above.</p>
+                    <p className="text-sand-600 text-sm">Add your first one above.</p>
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">
                     {active.map((a) => (
                         <div key={a.id} className="bg-surface border border-sand-200 rounded-2xl px-5 py-4 flex items-center gap-3">
                             <p className="flex-1 font-serif text-lg text-ink">“{a.text}”</p>
-                            <button onClick={() => setArchived(a.id, true)} className="text-xs text-sand-500 hover:text-ink shrink-0">Archive</button>
-                            <button onClick={() => remove(a.id)} className="text-xs text-sand-500 hover:text-rose-600 shrink-0">Delete</button>
+                            <button onClick={() => setArchived(a.id, true)} className="text-xs text-sand-600 hover:text-ink shrink-0">Archive</button>
+                            <button onClick={() => remove(a.id)} className="text-xs text-sand-600 hover:text-rose-600 shrink-0">Delete</button>
                         </div>
                     ))}
 
                     {archived.length > 0 && (
                         <>
-                            <p className="text-xs uppercase tracking-wide text-sand-400 mt-6 mb-1">Archived</p>
+                            <p className="text-xs uppercase tracking-wide text-sand-600 mt-6 mb-1">Archived</p>
                             {archived.map((a) => (
                                 <div key={a.id} className="bg-sand-100/50 border border-sand-200 rounded-2xl px-5 py-3 flex items-center gap-3">
-                                    <p className="flex-1 text-sand-500">“{a.text}”</p>
+                                    <p className="flex-1 text-sand-600">“{a.text}”</p>
                                     <button onClick={() => setArchived(a.id, false)} className="text-xs text-sage-700 hover:text-sage-900 shrink-0">Restore</button>
-                                    <button onClick={() => remove(a.id)} className="text-xs text-sand-500 hover:text-rose-600 shrink-0">Delete</button>
+                                    <button onClick={() => remove(a.id)} className="text-xs text-sand-600 hover:text-rose-600 shrink-0">Delete</button>
                                 </div>
                             ))}
                         </>

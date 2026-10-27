@@ -143,7 +143,7 @@ export default function Journal() {
                         onClick={() => setSelected(t)}
                         className={`text-sm rounded-full px-3.5 py-1.5 border transition-colors ${
                             !isCustom(selected) && selected.key === t.key
-                                ? 'bg-sage-500 text-white border-sage-500'
+                                ? 'bg-sage-600 text-white border-sage-600'
                                 : 'bg-surface border-sand-200 text-sand-700 hover:border-sand-400'
                         }`}
                     >
@@ -156,18 +156,18 @@ export default function Journal() {
                             onClick={() => setSelected(t)}
                             className={`text-sm rounded-full px-3.5 py-1.5 border transition-colors ${
                                 isCustom(selected) && selected.id === t.id
-                                    ? 'bg-sage-500 text-white border-sage-500'
+                                    ? 'bg-sage-600 text-white border-sage-600'
                                     : 'bg-surface border-sand-200 text-sand-700 hover:border-sand-400'
                             }`}
                         >
                             {t.name}
                         </button>
-                        <button onClick={() => deleteType(t.id)} title="Delete type" className="text-sand-400 hover:text-rose-500 text-xs ml-1">✕</button>
+                        <button onClick={() => deleteType(t.id)} title="Delete type" aria-label="Delete type" className="inline-flex items-center justify-center w-6 h-6 -my-1 text-sand-600 hover:text-rose-700 text-xs">✕</button>
                     </span>
                 ))}
                 <button
                     onClick={() => setShowNewType((s) => !s)}
-                    className="text-sm rounded-full px-3.5 py-1.5 border border-dashed border-sand-300 text-sand-500 hover:border-sand-400 transition-colors"
+                    className="text-sm rounded-full px-3.5 py-1.5 border border-dashed border-sand-300 text-sand-600 hover:border-sand-400 transition-colors"
                 >
                     + Custom type
                 </button>
@@ -177,6 +177,7 @@ export default function Journal() {
                 <form onSubmit={createType} className="flex flex-wrap gap-2 mb-4 items-center">
                     <input
                         className="field flex-1 min-w-[200px]"
+                        aria-label="Name of your journal type"
                         placeholder="Name your type, for example Dreams"
                         value={newTypeName}
                         onChange={(e) => setNewTypeName(e.target.value)}
@@ -190,6 +191,7 @@ export default function Journal() {
             <form onSubmit={save} className="mb-9">
                 <textarea
                     className="field min-h-[140px] resize-y"
+                    aria-label="Journal entry"
                     placeholder={prompt}
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
@@ -205,7 +207,7 @@ export default function Journal() {
             {/* Past entries */}
             <h2 className="font-serif text-xl mb-3">Your entries</h2>
             {entries.length === 0 ? (
-                <p className="text-sand-400 py-8 text-center">No entries yet. Your first thought is safe here.</p>
+                <p className="text-sand-600 py-8 text-center">No entries yet. Your first thought is safe here.</p>
             ) : (
                 <div className="flex flex-col gap-3">
                     {entries.map((entry) => {
@@ -214,7 +216,7 @@ export default function Journal() {
                             <div key={entry.id} className="bg-surface border border-sand-200 rounded-2xl p-5">
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-sand-700">{entryLabel(entry)}</span>
-                                    <span className="text-xs text-sand-400">
+                                    <span className="text-xs text-sand-600">
                                         {new Date(entry.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </span>
                                 </div>
@@ -223,6 +225,7 @@ export default function Journal() {
                                     <>
                                         <textarea
                                             className="field min-h-[120px] resize-y"
+                                            aria-label="Edit entry"
                                             value={editContent}
                                             onChange={(e) => setEditContent(e.target.value)}
                                         />
@@ -245,8 +248,8 @@ export default function Journal() {
                                                     {expandedId === entry.id ? 'Show less' : 'Read more'}
                                                 </button>
                                             )}
-                                            <button onClick={() => { setEditingId(entry.id); setEditContent(entry.content) }} className="text-sand-500 hover:text-ink">Edit</button>
-                                            <button onClick={() => deleteEntry(entry.id)} className="text-sand-500 hover:text-rose-600">Delete</button>
+                                            <button onClick={() => { setEditingId(entry.id); setEditContent(entry.content) }} className="text-sand-600 hover:text-ink">Edit</button>
+                                            <button onClick={() => deleteEntry(entry.id)} className="text-sand-600 hover:text-rose-600">Delete</button>
                                         </div>
                                     </>
                                 )}

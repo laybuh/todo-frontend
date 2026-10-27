@@ -43,14 +43,14 @@ export default function Register() {
             {error && <p className="alert-error mb-3">{error}</p>}
 
             <form onSubmit={handleRegister} className="flex flex-col gap-3">
-                <input className="field" type="text" placeholder="Display name" value={username} onChange={e => setUsername(e.target.value)} />
-                <input className="field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-                <input className="field" type="password" placeholder="Password (8+ chars, 1 capital, 1 symbol)" value={password} onChange={e => setPassword(e.target.value)} />
-                <input className="field" type="password" placeholder="Confirm password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                <input className="field" type="text" aria-label="Display name" placeholder="Display name" value={username} onChange={e => setUsername(e.target.value)} />
+                <input className="field" type="email" aria-label="Email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input className="field" type="password" aria-label="Password" placeholder="Password (8+ chars, 1 capital, 1 symbol)" value={password} onChange={e => setPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="Confirm password" placeholder="Confirm password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Create account</button>
             </form>
 
-            <p className="mt-4 text-center text-xs text-sand-500">
+            <p className="mt-4 text-center text-xs text-sand-600">
                 Everything you write is encrypted. <Link className="hover:text-ink transition-colors underline decoration-sand-300" to="/proof-of-privacy">See how</Link>.
             </p>
         </AuthLayout>

@@ -28,7 +28,7 @@ function BoxBreathing() {
                 />
                 <span className="absolute text-sage-800 font-medium">{PHASES[phase].label}</span>
             </div>
-            <p className="text-xs text-sand-500 mt-4">Follow the circle. In for four, hold, out for four, hold.</p>
+            <p className="text-xs text-sand-600 mt-4">Follow the circle. In for four, hold, out for four, hold.</p>
         </div>
     )
 }
@@ -54,7 +54,7 @@ function Grounding() {
                 </>
             ) : (
                 <>
-                    <p className="text-5xl font-serif text-sage-600 mb-2">{GROUNDING[step].n}</p>
+                    <p className="text-5xl font-serif text-sage-700 mb-2">{GROUNDING[step].n}</p>
                     <p className="text-ink mb-5">{GROUNDING[step].prompt}</p>
                     <div className="flex items-center justify-center gap-2">
                         {step > 0 && <button onClick={() => setStep((s) => s - 1)} className="btn-soft px-4 py-2 text-sm">Back</button>}
@@ -82,12 +82,13 @@ function VentSpace() {
         <div className="bg-surface border border-sand-200 rounded-2xl p-6">
             <textarea
                 className="field min-h-[160px] resize-y"
+                aria-label="Write it out"
                 placeholder="Type whatever. Vent it out. No one will ever read this."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
             />
             <div className="flex items-center justify-between gap-3 mt-3">
-                <p className="text-xs text-sand-500 flex items-center gap-1.5">
+                <p className="text-xs text-sand-600 flex items-center gap-1.5">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" className="shrink-0" aria-hidden="true">
                         <rect x="4" y="11" width="16" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
                         <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" />
@@ -128,7 +129,7 @@ export default function CalmSpace() {
                 <VentSpace />
             </div>
 
-            <p className="text-sm text-sand-500 mt-8">
+            <p className="text-sm text-sand-600 mt-8">
                 If things feel like too much right now, the{' '}
                 <Link to="/crisis" className="text-sage-700 hover:text-sage-900 font-medium">crisis support</Link>
                 {' '}has real people you can reach any time.

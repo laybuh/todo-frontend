@@ -72,7 +72,7 @@ export default function ProofOfPrivacy() {
             <PublicNav />
 
             <header className="max-w-3xl mx-auto px-6 md:px-10 pt-12 md:pt-16 text-center">
-                <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-4">
+                <p className="text-sage-700 font-medium tracking-wide uppercase text-xs mb-4">
                     Proof of privacy
                 </p>
                 <h1 className="font-serif text-4xl md:text-5xl leading-tight">
@@ -89,10 +89,11 @@ export default function ProofOfPrivacy() {
             <section className="max-w-3xl mx-auto px-6 md:px-10 mt-10 grid gap-4">
                 {/* You type */}
                 <div className="bg-surface border border-sand-200 rounded-2xl p-5">
-                    <label className="block text-xs uppercase tracking-wide text-sand-500 mb-2">
+                    <label htmlFor="privacy-demo-input" className="block text-xs uppercase tracking-wide text-sand-600 mb-2">
                         What you write
                     </label>
                     <textarea
+                        id="privacy-demo-input"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         rows={3}
@@ -102,7 +103,7 @@ export default function ProofOfPrivacy() {
                 </div>
 
                 {/* Arrow */}
-                <div className="text-center text-sand-400 text-sm">
+                <div className="text-center text-sand-600 text-sm">
                     AES-256-GCM, 256-bit key, fresh random value every time
                 </div>
 
@@ -126,7 +127,7 @@ export default function ProofOfPrivacy() {
                             {stored || ''}
                         </motion.code>
                     </AnimatePresence>
-                    <p className="text-[11px] text-sand-400 mt-3">
+                    <p className="text-[11px] text-sand-300 mt-3">
                         It changes completely on every keystroke. Type the same thing twice and you
                         still get something different, because every encryption uses a new random value.
                     </p>
@@ -135,7 +136,7 @@ export default function ProofOfPrivacy() {
                 {/* Reveal */}
                 <div className="bg-surface border border-sand-200 rounded-2xl p-5">
                     <div className="flex items-center justify-between gap-3">
-                        <span className="text-xs uppercase tracking-wide text-sand-500">
+                        <span className="text-xs uppercase tracking-wide text-sand-600">
                             Decrypted, only possible with the key
                         </span>
                         <button
@@ -144,13 +145,13 @@ export default function ProofOfPrivacy() {
                                 await decrypt(keyRef.current, out.ivHex, out.tagHex, out.cipherHex)
                                 setRevealed((r) => !r)
                             }}
-                            className="text-xs bg-sage-500 hover:bg-sage-600 text-white rounded-lg px-3 py-1.5 transition-colors"
+                            className="text-xs bg-sage-600 hover:bg-sage-700 text-white rounded-lg px-3 py-1.5 transition-colors"
                         >
                             {revealed ? 'Hide' : 'Use the key'}
                         </button>
                     </div>
                     <p className="mt-3 font-mono text-sm break-words min-h-[1.5rem]">
-                        {revealed ? text : <span className="text-sand-400">•••••••••••••••••••</span>}
+                        {revealed ? text : <span className="text-sand-600">•••••••••••••••••••</span>}
                     </p>
                 </div>
             </section>
@@ -196,11 +197,11 @@ export default function ProofOfPrivacy() {
             <section className="text-center pb-20 px-6">
                 <Link
                     to="/register"
-                    className="inline-block bg-sage-500 hover:bg-sage-600 text-white rounded-xl px-7 py-3.5 font-medium transition-colors"
+                    className="inline-block bg-sage-600 hover:bg-sage-700 text-white rounded-xl px-7 py-3.5 font-medium transition-colors"
                 >
                     Start your private space
                 </Link>
-                <p className="mt-4 text-xs text-sand-500">
+                <p className="mt-4 text-xs text-sand-600">
                     <Link to="/" className="hover:text-ink transition-colors">Back home</Link>
                 </p>
             </section>

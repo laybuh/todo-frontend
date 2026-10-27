@@ -39,7 +39,7 @@ export default function Home() {
                         initial="hidden" animate="show" variants={fade}
                         className="inline-flex items-center gap-1.5 rounded-full border border-sage-200 bg-sage-50 text-sage-700/90 font-mono tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
                     >
-                        <span aria-hidden className="text-dusk">&gt;</span>
+                        <span aria-hidden className="text-dusk-deep">&gt;</span>
                         built for your mind
                     </motion.p>
                     <motion.h1
@@ -47,7 +47,7 @@ export default function Home() {
                         className="font-serif font-normal text-5xl md:text-7xl leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto"
                     >
                         <span className="block">Get things done.</span>
-                        <span className="block italic pb-2 bg-gradient-to-r from-sage-600 via-dusk to-mauve bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
+                        <span className="block italic pb-2 bg-gradient-to-r from-sage-700 via-dusk-deep to-mauve-deep bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
                     </motion.h1>
                     <motion.p
                         initial="hidden" animate="show" custom={2} variants={fade}
@@ -67,7 +67,7 @@ export default function Home() {
 
                     <motion.p
                         initial="hidden" animate="show" custom={4} variants={fade}
-                        className="mt-8 inline-flex items-center gap-2 rounded-md border border-sand-300 bg-transparent font-mono text-[11px] text-sand-500 tracking-wide px-3 py-1"
+                        className="mt-8 inline-flex items-center gap-2 rounded-md border border-sand-300 bg-transparent font-mono text-[11px] text-sand-600 tracking-wide px-3 py-1"
                     >
                         <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-sage-400 animate-pulse" />
                         AES-256 encrypted

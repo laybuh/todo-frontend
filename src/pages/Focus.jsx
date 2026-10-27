@@ -123,7 +123,7 @@ export default function Focus() {
         <button
             onClick={() => navigate('/dashboard')}
             aria-label="Exit focus"
-            className="absolute top-4 right-4 sm:top-5 sm:right-6 z-50 inline-flex items-center gap-1.5 rounded-full bg-sage-500 hover:bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors"
+            className="absolute top-4 right-4 sm:top-5 sm:right-6 z-50 inline-flex items-center gap-1.5 rounded-full bg-sage-600 hover:bg-sage-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors"
         >
             Exit
             <span aria-hidden>✕</span>
@@ -136,6 +136,7 @@ export default function Focus() {
         <form onSubmit={addTask} className="flex gap-2">
             <input
                 className="field"
+                aria-label="New task"
                 placeholder={placeholder}
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
@@ -153,7 +154,7 @@ export default function Focus() {
         return (
             <DashboardLayout active="focus">
                 <div className="max-w-xl">
-                    <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-3">Focus</p>
+                    <p className="text-sage-700 font-medium tracking-wide uppercase text-xs mb-3">Focus</p>
                     <h1 className="font-serif text-3xl md:text-4xl mb-2">One thing at a time.</h1>
                     <p className="text-sand-600 mb-6">Focus gives one task your full attention on a timer.</p>
                     <div className="bg-surface border border-sand-200 rounded-2xl p-6 text-sand-700 mb-7 leading-relaxed">
@@ -178,11 +179,11 @@ export default function Focus() {
                 {/* ── Setup: choose a task and a duration ── */}
                 {stage === 'setup' && (
                     <div>
-                        <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-3">Focus</p>
+                        <p className="text-sage-700 font-medium tracking-wide uppercase text-xs mb-3">Focus</p>
                         <h1 className="font-serif text-4xl mb-6">What do you want to focus on?</h1>
 
                         {!loaded ? (
-                            <p className="text-sand-500">Loading…</p>
+                            <p className="text-sand-600">Loading…</p>
                         ) : (
                             <>
                                 {/* Duration picker */}
@@ -203,9 +204,10 @@ export default function Focus() {
                                         ))}
                                     </div>
                                     <div className="flex items-center justify-center gap-2 text-sm">
-                                        <span className="text-sand-500">Or set your own:</span>
+                                        <span className="text-sand-600">Or set your own:</span>
                                         <input
                                             type="number"
+                                            aria-label="Minutes"
                                             min={MIN_MINUTES}
                                             max={MAX_MINUTES}
                                             value={minutes}
@@ -216,7 +218,7 @@ export default function Focus() {
                                             }}
                                             className="w-20 text-center bg-surface border border-sand-300 rounded-xl py-1.5 text-ink outline-none focus:border-sage-400"
                                         />
-                                        <span className="text-sand-500">min</span>
+                                        <span className="text-sand-600">min</span>
                                     </div>
                                 </div>
 
@@ -243,14 +245,14 @@ export default function Focus() {
                                             ))}
                                         </div>
                                         <div className="text-left">
-                                            <p className="text-xs uppercase tracking-wide text-sand-400 mb-2">Add another task</p>
+                                            <p className="text-xs uppercase tracking-wide text-sand-600 mb-2">Add another task</p>
                                             {renderAddTask('Something else on your mind…')}
                                         </div>
                                     </>
                                 ) : (
                                     <div className="text-left">
                                         <p className="text-sand-600 mb-1 text-center">Your list is clear right now.</p>
-                                        <p className="text-sand-500 text-sm mb-4 text-center">Add something you’d like to focus on and start whenever you’re ready.</p>
+                                        <p className="text-sand-600 text-sm mb-4 text-center">Add something you’d like to focus on and start whenever you’re ready.</p>
                                         {renderAddTask('What would you like to work on?')}
                                     </div>
                                 )}
@@ -271,12 +273,12 @@ export default function Focus() {
                         >
                             {!timeUp ? (
                                 <>
-                                    <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-5">Right now, just this.</p>
+                                    <p className="text-sage-700 font-medium tracking-wide uppercase text-xs mb-5">Right now, just this.</p>
                                     <h1 className="font-serif text-3xl md:text-4xl leading-snug mb-8">{current.title}</h1>
                                     <p className="font-serif text-6xl md:text-7xl tabular-nums text-sage-700 mb-3">{mmss(secondsLeft)}</p>
                                     <button
                                         onClick={() => setRunning((r) => !r)}
-                                        className="text-xs text-sand-500 hover:text-ink transition-colors mb-10"
+                                        className="text-xs text-sand-600 hover:text-ink transition-colors mb-10"
                                     >
                                         {running ? 'Pause' : 'Resume'}
                                     </button>
@@ -284,11 +286,11 @@ export default function Focus() {
                                         <button onClick={markDone} className="btn-primary w-auto px-8">Mark done</button>
                                         <button onClick={stepAway} className="btn-soft px-8">Done for now</button>
                                     </div>
-                                    <p className="text-xs text-sand-500 mt-5">“Done for now” keeps the task on your list for later.</p>
+                                    <p className="text-xs text-sand-600 mt-5">“Done for now” keeps the task on your list for later.</p>
                                 </>
                             ) : (
                                 <>
-                                    <p className="text-sage-600 font-medium tracking-wide uppercase text-xs mb-5">Time’s up.</p>
+                                    <p className="text-sage-700 font-medium tracking-wide uppercase text-xs mb-5">Time’s up.</p>
                                     <h1 className="font-serif text-3xl md:text-4xl leading-snug mb-3">{current.title}</h1>
                                     <p className="text-sand-600 mb-9">Nice work giving that your attention. What next?</p>
                                     <div className="flex flex-col items-center gap-3">

@@ -116,6 +116,7 @@ export default function VerifyOTP() {
                         ref={(el) => (inputs.current[i] = el)}
                         type="text"
                         inputMode="numeric"
+                        aria-label={`Digit ${i + 1} of 6`}
                         maxLength={1}
                         value={d}
                         onChange={(e) => setDigit(i, e.target.value)}

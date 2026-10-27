@@ -75,7 +75,7 @@ export default function Mood() {
             )}
 
             {history.length === 0 ? (
-                <p className="text-sand-400 py-12 text-center">No check-ins yet. Your mood history will appear here.</p>
+                <p className="text-sand-600 py-12 text-center">No check-ins yet. Your mood history will appear here.</p>
             ) : (
                 <>
                     <div className="bg-surface border border-sand-200 rounded-2xl p-4 pt-6 mb-4">
@@ -107,12 +107,12 @@ export default function Mood() {
 
                     {history.some((m) => m.note) && (
                         <div className="flex flex-col gap-2 mb-2">
-                            <p className="text-xs uppercase tracking-wide text-sand-400 mb-1">Notes</p>
+                            <p className="text-xs uppercase tracking-wide text-sand-600 mb-1">Notes</p>
                             {[...history].reverse().filter((m) => m.note).map((m) => (
                                 <div key={m.id} className="bg-surface border border-sand-200 rounded-2xl p-4">
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="text-sm font-medium text-sand-700">{moodMeta(m.mood).label}</span>
-                                        <span className="text-xs text-sand-400">{fmtDate(m.entry_date)}</span>
+                                        <span className="text-xs text-sand-600">{fmtDate(m.entry_date)}</span>
                                     </div>
                                     <p className="text-sm text-ink whitespace-pre-wrap leading-relaxed">{m.note}</p>
                                 </div>
@@ -127,14 +127,14 @@ export default function Mood() {
                                 <button
                                     onClick={clearHistory}
                                     disabled={deleting}
-                                    className="bg-rose-500 hover:bg-rose-600 text-white rounded-lg px-3 py-1.5 font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className="bg-rose-600 hover:bg-rose-700 text-white rounded-lg px-3 py-1.5 font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
                                     {deleting ? 'Erasing…' : 'Yes, erase'}
                                 </button>
-                                <button onClick={() => setClearing(false)} disabled={deleting} className="text-sand-500 hover:text-ink disabled:opacity-60">Cancel</button>
+                                <button onClick={() => setClearing(false)} disabled={deleting} className="text-sand-600 hover:text-ink disabled:opacity-60">Cancel</button>
                             </div>
                         ) : (
-                            <button onClick={() => setClearing(true)} className="text-xs text-sand-500 hover:text-rose-700 transition-colors">
+                            <button onClick={() => setClearing(true)} className="text-xs text-sand-600 hover:text-rose-700 transition-colors">
                                 Clear mood history
                             </button>
                         )}

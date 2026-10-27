@@ -45,8 +45,8 @@ export default function ResetPassword() {
             {success && <p className="alert-success mb-3">{success}</p>}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                <input className="field" type="password" placeholder="New password (8+ chars, 1 capital, 1 symbol)" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-                <input className="field" type="password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="New password" placeholder="New password (8+ chars, 1 capital, 1 symbol)" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                <input className="field" type="password" aria-label="Confirm new password" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Reset password</button>
             </form>
         </AuthLayout>

@@ -8,14 +8,14 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-cream via-cream to-mauve/25" />
 
             <div className="w-full max-w-md bg-surface/90 backdrop-blur border border-sand-200 rounded-2xl shadow-[0_2px_24px_rgba(63,58,52,0.08)] p-8 md:p-10">
-                <Link to="/" className="inline-flex items-center gap-1 text-xs text-sand-500 hover:text-ink transition-colors mb-5">
+                <Link to="/" className="inline-flex items-center gap-1 text-xs text-sand-600 hover:text-ink transition-colors mb-5">
                     ← Back to home
                 </Link>
                 <div className="h-1 w-12 rounded-full mb-5 bg-gradient-to-r from-sage-400 to-mauve" />
                 <Link to="/" className="inline-block mb-6">
                     <p className="font-serif text-2xl tracking-wide text-ink leading-none">lunev</p>
-                    <p className="text-[11px] text-sand-500 mt-1.5 font-mono lowercase tracking-wide">
-                        <span className="text-dusk">&gt;</span> a safe space for your mind
+                    <p className="text-[11px] text-sand-600 mt-1.5 font-mono lowercase tracking-wide">
+                        <span className="text-dusk-deep">&gt;</span> a safe space for your mind
                     </p>
                 </Link>
 

@@ -21,16 +21,16 @@ export default function CrisisCorner() {
                 >
                     <span>
                         <span className="block text-sm font-medium text-ink">Find a helpline near you</span>
-                        <span className="block text-xs text-sand-500">Crisis lines for your country, via findahelpline.com</span>
+                        <span className="block text-xs text-sand-600">Crisis lines for your country, via findahelpline.com</span>
                     </span>
                     <span className="text-sm font-medium text-rose-600 shrink-0">Open</span>
                 </a>
-                <p className="text-xs text-sand-500 mt-4">
+                <p className="text-xs text-sand-600 mt-4">
                     Lunev isn’t a medical or crisis service and can’t replace professional help. If you’re in immediate danger, please call your local emergency number.
                 </p>
             </div>
 
-            <p className="text-sm text-sand-500">
+            <p className="text-sm text-sand-600">
                 Need a moment to settle rather than a call? The{' '}
                 <Link to="/calm" className="text-sage-700 hover:text-sage-900 font-medium">calm space</Link>
                 {' '}has breathing and grounding exercises.

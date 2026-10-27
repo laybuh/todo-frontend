@@ -39,7 +39,7 @@ export default function ForgotPassword() {
             {success && <p className="alert-success mb-3">{success}</p>}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                <input className="field" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input className="field" type="email" aria-label="Email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
                 <button className="btn-primary mt-1" type="submit">Send reset link</button>
             </form>
         </AuthLayout>
