@@ -86,11 +86,11 @@ export default function Login() {
                     >
                         <h2 className="font-serif text-2xl mb-3">Check your email</h2>
                         <p className="text-sand-600 text-sm mb-1">
-                            Your account is created. We sent a verification link
-                            {registeredEmail ? <> to <span className="text-ink font-medium">{registeredEmail}</span></> : ' to your email'}.
+                            We sent an email
+                            {registeredEmail ? <> to <span className="text-ink font-medium">{registeredEmail}</span></> : ' to your inbox'}.
                         </p>
                         <p className="text-sand-600 text-sm mb-6">
-                            Click that link first, then come back here to sign in.
+                            Follow the link in it to finish signing up, then come back here to sign in.
                         </p>
                         <button onClick={() => setShowVerifyNotice(false)} className="btn-primary">Got it</button>
                     </div>

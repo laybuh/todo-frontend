@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { getAccessToken, clearAccessToken } from '../authClient'
+import PrivacyLinks from './PrivacyLinks'
 
 const IDLE_MS = 60 * 60 * 1000
 
@@ -114,6 +115,7 @@ export default function DashboardLayout({ active, children }) {
                     >
                         Buy me a coffee
                     </a>
+                    <PrivacyLinks className="px-3 mt-3 text-[11px] text-sand-600" />
                 </div>
             </aside>
 
@@ -152,6 +154,7 @@ export default function DashboardLayout({ active, children }) {
                                     <span>Sign out</span>
                                 </button>
                                 <a href="https://ko-fi.com/layba" target="_blank" rel="noopener noreferrer" className="self-start ml-3 mt-2 font-mono text-[9px] uppercase tracking-wide text-[#6c5a93] border border-mauve/60 bg-mauve/20 rounded px-2 py-1 hover:bg-mauve/30 transition-colors">Buy me a coffee</a>
+                                <PrivacyLinks className="px-3 mt-3 text-[11px] text-sand-600" />
                             </div>
                         </aside>
                     </div>

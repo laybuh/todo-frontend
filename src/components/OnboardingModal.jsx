@@ -12,16 +12,16 @@ const STEPS = [
         body: 'This is your safe space for tasks, journaling, moods, and daily intentions. Somewhere calm to look after both your to-do list and your mind.',
     },
     {
-        title: 'Your words are encrypted.',
-        body: 'Everything you write is scrambled with strong encryption (AES-256) before it is saved. What lives in our database is unreadable code, not your private thoughts.',
+        title: 'Your entries are encrypted.',
+        body: 'Your journal entries, mood notes, tasks, and affirmations are scrambled with strong encryption (AES-256) before they’re saved. In our database, they’re unreadable code, not your private thoughts.',
     },
     {
         title: 'A leak would just be noise.',
-        body: 'The key that unscrambles your data is never kept next to it in our database. Even if our database were ever hacked, what an attacker walked away with would be scrambled and unreadable. We do not read your entries, and we will never sell or share them. As a gentle note, it is always good to use your own judgment with anything truly sensitive.',
+        body: 'The key that unscrambles your entries is never kept next to them in our database. Even if our database were ever hacked, what you’ve written would show up as scrambled text. We do not read your entries, and we will never sell or share them. As a gentle note, it is always good to use your own judgment with anything truly sensitive.',
     },
     {
         title: 'Start whenever you are ready.',
-        body: 'Add a task, write a thought, or just look around. Your space is yours, and it is private from the very first word.',
+        body: 'Add a task, write a thought, or just look around. Your space is yours.',
     },
 ]
 

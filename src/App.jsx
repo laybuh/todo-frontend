@@ -13,6 +13,8 @@ const Settings = lazy(() => import('./pages/Settings'))
 
 // Lazy: in-app pages load on demand. Keeps recharts/framer out of first load.
 const ProofOfPrivacy = lazy(() => import('./pages/ProofOfPrivacy'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const PrivacyHealth = lazy(() => import('./pages/PrivacyHealth'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Focus = lazy(() => import('./pages/Focus'))
 const Journal = lazy(() => import('./pages/Journal'))
@@ -57,6 +59,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proof-of-privacy" element={<ProofOfPrivacy />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/privacy/health" element={<PrivacyHealth />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />

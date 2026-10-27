@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import PrivacyLinks from './PrivacyLinks'
 
 // Shared footer for public pages: brand, copyright, and a contact address.
 export default function PublicFooter() {
@@ -22,7 +23,7 @@ export default function PublicFooter() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center sm:items-end gap-1.5 text-xs">
-                    <Link to="/proof-of-privacy" className="inline-block py-1 hover:text-ink transition-colors">Proof of privacy</Link>
+                    <PrivacyLinks className="justify-center sm:justify-end" />
                     <p>
                         Questions or concerns?{' '}
                         <a href="mailto:hello@layba.dev" className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2">hello@layba.dev</a>

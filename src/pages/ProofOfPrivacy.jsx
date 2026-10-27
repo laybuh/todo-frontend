@@ -12,12 +12,12 @@ export default function ProofOfPrivacy() {
                 </h1>
                 <div className="grid gap-5 text-sand-700 leading-relaxed">
                     <p>
-                        Everything you write in lunev is encrypted with AES-256 before it’s saved.
-                        That includes your journal entries, mood notes, and tasks.
+                        Your journal entries, mood notes, tasks, and affirmations are encrypted with
+                        AES-256 before they’re saved.
                     </p>
                     <p>
                         The encryption key is stored separately from your data. So if our database
-                        ever leaked, all anyone would find is scrambled text, not your words.
+                        ever leaked, what you’ve written would show up as scrambled text.
                     </p>
                     <p>
                         If you have questions about how it works, email{' '}

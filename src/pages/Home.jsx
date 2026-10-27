@@ -54,7 +54,7 @@ export default function Home() {
                         className="mt-6 text-sm text-sand-700 max-w-md mx-auto leading-relaxed"
                     >
                         Some days are about getting things done. Some days are about getting through.
-                        lunev holds both. Everything you write here is encrypted before it is saved.
+                        lunev holds both. Your journal entries and mood notes are encrypted before they’re saved.
                     </motion.p>
                     <motion.div
                         initial="hidden" animate="show" custom={3} variants={fade}
@@ -115,10 +115,10 @@ export default function Home() {
                         We care about what you write here.
                     </h2>
                     <p className="text-sm text-sand-700 leading-relaxed max-w-xl mx-auto">
-                        Your journal entries, mood notes, and tasks are encrypted before they are saved. The key is never stored next to them in the database. If our database ever leaked, all anyone would find is scrambled text. Don't take our word for it. See it for yourself.
+                        Your journal entries, mood notes, tasks, and affirmations are encrypted before they’re saved. The key is never stored next to them in the database. If our database ever leaked, what you’ve written would show up as scrambled text. Here’s exactly how it works.
                     </p>
                     <Link to="/proof-of-privacy" className="btn-pillow-ink mt-8">
-                        Watch your words get encrypted.
+                        How your data is protected.
                     </Link>
                 </div>
             </section>

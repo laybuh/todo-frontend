@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
+import PrivacyLinks from './PrivacyLinks'
 
 // Shared warm-themed card layout for all auth pages.
 export default function AuthLayout({ title, subtitle, children, footer }) {
     return (
-        <div className="min-h-screen text-ink font-sans flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="min-h-screen text-ink font-sans flex flex-col items-center justify-center p-4 relative overflow-hidden">
             {/* soft warm wash — color only, no graphics */}
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-cream via-cream to-mauve/25" />
 
@@ -28,6 +29,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
                     <p className="mt-6 text-center text-sm text-sand-600">{footer}</p>
                 )}
             </div>
+            <PrivacyLinks className="justify-center mt-5 text-xs text-sand-600" />
         </div>
     )
 }
