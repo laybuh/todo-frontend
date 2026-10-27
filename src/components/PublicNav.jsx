@@ -6,7 +6,7 @@ import { hasValidSession, bootstrapAuth } from '../authClient'
 // If the visitor still has a live session, swap Log in / Sign up for a single
 // Dashboard link. On a fresh page load the access token isn't in memory yet, so
 // we try to restore it from the httpOnly refresh cookie before deciding.
-export default function PublicNav() {
+export default function PublicNav({ masthead = false }) {
     const [authed, setAuthed] = useState(hasValidSession())
 
     useEffect(() => {
@@ -18,9 +18,9 @@ export default function PublicNav() {
     }, [])
 
     return (
-        <nav className="flex flex-col items-center gap-3 px-6 md:px-10 py-5 max-w-6xl mx-auto w-full">
+        <nav className={`flex flex-col items-center px-6 md:px-10 max-w-6xl mx-auto w-full ${masthead ? 'gap-4 pt-7 pb-5' : 'gap-3 py-5'}`}>
             <Link to="/" className="inline-block">
-                <img src="/lunev-logo.png" alt="lunev" width={108} height={40} className="h-10 w-auto" />
+                <img src="/lunev-logo.png" alt="lunev" width={masthead ? 281 : 108} height={masthead ? 104 : 40} className={masthead ? 'h-16 md:h-[104px] w-auto' : 'h-10 w-auto'} />
             </Link>
             <div className="nav-capsule">
                 <Link to="/proof-of-privacy" className="nav-ghost">

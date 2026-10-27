@@ -20,7 +20,7 @@ const fade = {
 export default function Home() {
     return (
         <div className="min-h-screen text-ink font-sans">
-            <PublicNav />
+            <PublicNav masthead />
 
             {/* Hero */}
             <header className="relative overflow-hidden">
@@ -34,7 +34,7 @@ export default function Home() {
                 <div aria-hidden className="pointer-events-none absolute -z-10 -top-24 right-[-3rem] w-[26rem] h-[26rem] rounded-full bg-mauve/20 blur-[90px]" />
                 <div aria-hidden className="pointer-events-none absolute -z-10 top-16 left-[34%] w-[22rem] h-[22rem] rounded-full bg-peach/20 blur-[90px]" />
 
-                <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-20 text-center">
+                <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-8 md:pt-10 pb-20 text-center">
                     <motion.h1
                         initial="hidden" animate="show" custom={1} variants={fade}
                         className="font-serif font-normal text-5xl md:text-7xl leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto"
