@@ -37,9 +37,9 @@ export default function Home() {
                 <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-20 text-center">
                     <motion.p
                         initial="hidden" animate="show" variants={fade}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-sage-200 bg-sage-50 text-sage-700/90 font-mono tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-sage-200 bg-sage-50 text-sage-700 font-mono tracking-[0.18em] uppercase text-[10px] px-3.5 py-1.5 mb-5"
                     >
-                        <span aria-hidden className="text-dusk-deep">&gt;</span>
+                        <span aria-hidden className="text-[#6c5a93]">&gt;</span>
                         built for your mind
                     </motion.p>
                     <motion.h1

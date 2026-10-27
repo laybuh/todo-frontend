@@ -76,7 +76,7 @@ export default function Login() {
         <AuthLayout
             title="Welcome back."
             subtitle="A space just for you."
-            footer={<>Don’t have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/register">Create one</Link></>}
+            footer={<>Don’t have an account? <Link className="text-sage-700 hover:text-sage-900 font-medium" to="/register">Create one</Link>.</>}
         >
             {showVerifyNotice && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 px-5" onClick={() => setShowVerifyNotice(false)}>
