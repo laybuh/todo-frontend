@@ -14,7 +14,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
                 </Link>
                 <div className="h-1 w-12 rounded-full mb-5 bg-gradient-to-r from-sage-400 to-mauve" />
                 <Link to="/" className="inline-block mb-6">
-                    <p className="font-serif text-2xl tracking-wide text-ink leading-none">lunev</p>
+                    <img src="/lunev-logo.png" alt="lunev" width={97} height={36} className="h-9 w-auto" />
                     <p className="text-[11px] text-sand-600 mt-1.5 font-mono lowercase tracking-wide">
                         <span className="text-[#6c5a93]">&gt;</span> a safe space for your mind
                     </p>

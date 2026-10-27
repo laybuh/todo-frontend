@@ -95,7 +95,7 @@ export default function DashboardLayout({ active, children }) {
             {/* Desktop sidebar */}
             <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-sand-200 bg-gradient-to-b from-surface via-surface to-cream p-5">
                 <Link to="/" className="px-2 mb-6">
-                    <p className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk-deep bg-clip-text text-transparent">lunev</p>
+                    <img src="/lunev-logo.png" alt="lunev" width={97} height={36} className="h-9 w-auto" />
                 </Link>
                 <nav className="flex flex-col gap-1">
                     <NavItems />
@@ -122,7 +122,7 @@ export default function DashboardLayout({ active, children }) {
             <div className="flex-1 flex flex-col min-w-0">
                 {/* Mobile top bar */}
                 <div className="md:hidden flex items-center justify-between px-5 py-4 border-b border-sand-200 bg-surface/60">
-                    <Link to="/" className="font-serif text-xl text-ink">lunev</Link>
+                    <Link to="/" className="inline-block"><img src="/lunev-logo.png" alt="lunev" width={86} height={32} className="h-8 w-auto" /></Link>
                     <button onClick={() => setMenuOpen(true)} aria-label="Open menu" className="text-ink p-1 -mr-1">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             <path d="M4 6h16M4 12h16M4 18h16" />
@@ -136,7 +136,7 @@ export default function DashboardLayout({ active, children }) {
                         <div className="absolute inset-0 bg-ink/40" onClick={() => setMenuOpen(false)} />
                         <aside className="absolute left-0 top-0 h-full w-64 max-w-[80%] bg-surface border-r border-sand-200 p-5 flex flex-col shadow-xl">
                             <div className="flex items-center justify-between mb-6">
-                                <Link to="/" onClick={() => setMenuOpen(false)} className="font-serif text-2xl tracking-wide leading-none bg-gradient-to-r from-sage-700 to-dusk-deep bg-clip-text text-transparent">lunev</Link>
+                                <Link to="/" onClick={() => setMenuOpen(false)} className="inline-block"><img src="/lunev-logo.png" alt="lunev" width={97} height={36} className="h-9 w-auto" /></Link>
                                 <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-sand-600 hover:text-ink p-1">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                                         <path d="M6 6l12 12M18 6L6 18" />

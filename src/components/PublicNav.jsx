@@ -19,8 +19,8 @@ export default function PublicNav() {
 
     return (
         <nav className="flex flex-col items-center gap-3 px-6 md:px-10 py-5 max-w-6xl mx-auto w-full">
-            <Link to="/" className="text-2xl font-serif tracking-wide text-ink">
-                lunev
+            <Link to="/" className="inline-block">
+                <img src="/lunev-logo.png" alt="lunev" width={108} height={40} className="h-10 w-auto" />
             </Link>
             <div className="nav-capsule">
                 <Link to="/proof-of-privacy" className="nav-ghost">
