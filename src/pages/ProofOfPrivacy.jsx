@@ -34,18 +34,6 @@ export default function ProofOfPrivacy() {
                         <li><Link to="/privacy" className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2">Privacy policy</Link></li>
                         <li><Link to="/privacy/health" className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2">Health data notice</Link></li>
                     </ul>
-                    <p className="text-sm text-sand-600 pt-4">
-                        Moon background by{' '}
-                        <a
-                            href="https://craftpix.net/freebies/free-moon-pixel-game-backgrounds/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="underline underline-offset-2 hover:text-ink transition-colors"
-                        >
-                            CraftPix
-                        </a>
-                        .
-                    </p>
                 </div>
             </main>
 

@@ -135,6 +135,13 @@
     /* nudge the moon into the upper-left corner, clear of the centered headline */
     transform: translateX(-28%) translateY(-4%);
   }
+  @media (max-width: 767px) {
+    .hero-scene {
+      inset: 0 auto auto 0;
+      width: 180vw;
+      height: 99vw;
+    }
+  }
 
   body {
     background-color: var(--color-cream);
