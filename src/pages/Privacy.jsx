@@ -124,7 +124,7 @@ export default function Privacy() {
                     </Section>
 
                     <Section title="Changes">
-                        <p>If we change this policy, we will update this page and notify you immediately by email.</p>
+                        <p>If we change this policy, we will update this page and notify you by email.</p>
                     </Section>
 
                     <Section title="Contact">
