@@ -23,8 +23,8 @@ export default function PublicNav() {
                 lunev
             </Link>
             <div className="nav-capsule">
-                <Link to="/proof-of-privacy" className="nav-ghost hidden sm:inline-flex">
-                    Proof of privacy
+                <Link to="/proof-of-privacy" className="nav-ghost">
+                    Privacy
                 </Link>
                 {authed ? (
                     <Link to="/dashboard" className="nav-pill">

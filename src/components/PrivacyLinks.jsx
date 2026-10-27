@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 const LINKS = [
-    { to: '/proof-of-privacy', label: 'Proof of privacy' },
     { to: '/privacy', label: 'Privacy policy' },
     { to: '/privacy/health', label: 'Health data' },
 ]

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PublicNav from '../components/PublicNav'
 import PublicFooter from '../components/PublicFooter'
 
@@ -8,7 +9,7 @@ export default function ProofOfPrivacy() {
 
             <main className="flex-1 max-w-2xl w-full mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-20">
                 <h1 className="font-serif text-4xl md:text-5xl leading-tight mb-8">
-                    Proof of privacy
+                    Privacy
                 </h1>
                 <div className="grid gap-5 text-sand-700 leading-relaxed">
                     <p>
@@ -26,6 +27,22 @@ export default function ProofOfPrivacy() {
                             className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2"
                         >
                             hello@layba.dev
+                        </a>
+                        .
+                    </p>
+                    <ul className="grid gap-2 pt-2">
+                        <li><Link to="/privacy" className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2">Privacy policy</Link></li>
+                        <li><Link to="/privacy/health" className="text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2">Health data notice</Link></li>
+                    </ul>
+                    <p className="text-sm text-sand-600 pt-4">
+                        Moon background by{' '}
+                        <a
+                            href="https://craftpix.net/freebies/free-moon-pixel-game-backgrounds/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline underline-offset-2 hover:text-ink transition-colors"
+                        >
+                            CraftPix
                         </a>
                         .
                     </p>
