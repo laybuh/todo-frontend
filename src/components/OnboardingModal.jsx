@@ -65,7 +65,7 @@ export default function OnboardingModal({ onComplete }) {
                         <p className="text-sand-700 leading-relaxed">{current.body}</p>
                         {step === 2 && (
                             <Link to="/proof-of-privacy" className="inline-block mt-3 text-sm text-sage-700 hover:text-sage-900 underline decoration-sand-300">
-                                Watch it happen
+                                How it works
                             </Link>
                         )}
                     </motion.div>
