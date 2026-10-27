@@ -37,7 +37,7 @@ export default function Home() {
                 <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-8 md:pt-10 pb-20 text-center">
                     <motion.h1
                         initial="hidden" animate="show" custom={1} variants={fade}
-                        className="font-serif font-normal text-[40px] md:text-6xl leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto text-balance"
+                        className="font-serif font-normal text-[36px] md:text-[52px] leading-[1.16] tracking-[-0.01em] max-w-3xl mx-auto text-balance"
                     >
                         <span className="block">Get things done.</span>
                         <span className="block italic pb-2 bg-gradient-to-r from-sage-700 via-dusk-deep to-mauve-deep bg-clip-text text-transparent [text-shadow:0_0_36px_rgba(184,161,196,0.40)]">Take care of your mind.</span>
