@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PublicNav from '../components/PublicNav'
 import PublicFooter from '../components/PublicFooter'
+import CareText from '../components/CareText'
 
 const linkClass = 'text-sage-700 hover:text-sage-900 font-medium underline underline-offset-2'
 
@@ -62,17 +63,17 @@ export default function PrivacyHealth() {
 
                     <Section title="How it is protected">
                         <p>
-                            Your journal entries and mood notes are encrypted before they are saved. Your mood score, journal entry
-                            type, and dates are stored without encryption. The encryption key is kept separately from the database.
-                            It belongs to our server, not your password, so we could technically decrypt entries, though we do not
-                            read them.
+                            Your journal entries and mood notes are encrypted with AES-256-GCM before they are saved. Your mood
+                            score, journal entry type, and dates are not encrypted. The encryption key is kept separately from the
+                            database. The key belongs to our server, not your password. That means we could technically decrypt
+                            entries, though we do not read them.
                         </p>
                     </Section>
 
                     <Section title="Your rights">
                         <ul className="list-disc pl-5 grid gap-2">
                             <li>Ask what health data we hold about you</li>
-                            <li>Delete it any time, in the app or by email. To delete your account, open Settings from the menu and choose Delete at the bottom of the page.</li>
+                            <li>Delete it at any time, in the app or by email. To delete your account, open Settings from the menu and choose Delete at the bottom of the page.</li>
                             <li>Withdraw your consent whenever you want by deleting your data or your account</li>
                         </ul>
                         <p>
@@ -90,14 +91,14 @@ export default function PrivacyHealth() {
 
                     <Section title="Age">
                         <p>
-                            lunev is for people 13 and older. We do not knowingly collect info from anyone younger, and if we find
-                            out we have, we will delete it. If you are under 18, we strongly encourage you to talk to a parent or
-                            another trusted adult about how you use it.
+                            lunev is for people 13 and older. We do not knowingly collect information from anyone under 13, and if
+                            we find out we have, we will delete it. If you are under 18, we would encourage you to talk to a parent
+                            or trusted adult about how you use lunev.
                         </p>
                     </Section>
 
                     <Section title="Not a replacement for care">
-                        <p>lunev is not a substitute for medical care. If you are in crisis in the US, call or text 988.</p>
+                        <CareText />
                     </Section>
 
                     <Section title="Contact">
